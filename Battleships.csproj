@@ -52,6 +52,7 @@
     <Compile Include="BattleShipsForm.Designer.cs">
       <DependentUpon>BattleShipsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameState.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -72,6 +73,8 @@
     <Compile Include="SelectDifficulty.Designer.cs">
       <DependentUpon>SelectDifficulty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ship.cs" />
+    <Compile Include="Ships.cs" />
     <EmbeddedResource Include="BattleShipsForm.resx">
       <DependentUpon>BattleShipsForm.cs</DependentUpon>
     </EmbeddedResource>
