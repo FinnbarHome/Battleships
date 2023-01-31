@@ -39,9 +39,9 @@ namespace Battleships
             // lblReturnToMainMenu
             // 
             this.lblReturnToMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblReturnToMainMenu.Location = new System.Drawing.Point(115, 440);
+            this.lblReturnToMainMenu.Location = new System.Drawing.Point(40, 440);
             this.lblReturnToMainMenu.Name = "lblReturnToMainMenu";
-            this.lblReturnToMainMenu.Size = new System.Drawing.Size(270, 60);
+            this.lblReturnToMainMenu.Size = new System.Drawing.Size(408, 60);
             this.lblReturnToMainMenu.TabIndex = 0;
             this.lblReturnToMainMenu.Text = "Return To Main Menu";
             this.lblReturnToMainMenu.UseVisualStyleBackColor = true;

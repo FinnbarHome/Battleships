@@ -19,7 +19,10 @@ namespace Battleships
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-
+            SelectDifficulty difficultyView = new SelectDifficulty();
+            this.ParentForm.Controls.Add(difficultyView);
+            this.ParentForm.Controls.Remove(this);
+            this.Dispose();
         }
 
         private void btnLoadGame_Click(object sender, EventArgs e)
