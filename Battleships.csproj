@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIPlayer.cs" />
     <Compile Include="BattleShipsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -53,6 +54,7 @@
       <DependentUpon>BattleShipsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GameState.cs" />
+    <Compile Include="GridSquare.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
