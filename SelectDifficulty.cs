@@ -24,5 +24,13 @@ namespace Battleships
                 this.ParentForm.Controls.Remove(this);
                 this.Dispose();
         }
+
+        private void btnEasy_Click(object sender, EventArgs e)
+        {
+            MainGrid mainMenuView = new MainGrid();
+            this.ParentForm.Controls.Add(mainMenuView);
+            this.ParentForm.Controls.Remove(this);
+            this.Dispose();
+        }
     }
 }

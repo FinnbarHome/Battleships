@@ -85,6 +85,7 @@
             this.btnEasy.TabIndex = 18;
             this.btnEasy.Text = "Easy";
             this.btnEasy.UseVisualStyleBackColor = true;
+            this.btnEasy.Click += new System.EventHandler(this.btnEasy_Click);
             // 
             // SelectDifficulty
             // 
