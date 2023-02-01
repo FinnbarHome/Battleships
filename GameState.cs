@@ -32,16 +32,23 @@ namespace Battleships
                     player1Square[i][j] = new GridSquare();
                     playerAISquare[i][j] = new GridSquare();
                 }
+                
             }
+            ai.generateGrid(this, playerAISquare);
             this.difficulty = difficulty;
         }
         public GameState(String gameFile)
         {
         }
 
-        public bool aiPlayerFillGrid()
+        public GridSquare getPlayer1Square(int x, int y)
         {
-            return true;
+            return player1Square[x][y];
+        }
+
+        public GridSquare getAISquare(int x, int y)
+        {
+            return playerAISquare[x][y];
         }
 
         public bool aiPlayerHitSquare()
@@ -53,26 +60,28 @@ namespace Battleships
         {
             for(int i = 0; i < ship.getSize(); i += 1)
             {
+                if(square[x + (i * dx)][y + (i * dy)].getShip() != Ships.NONE)
+                {
+                    return false;
+                }
+            }
+            for(int i = 0; i < ship.getSize(); i += 1)
+            {
                 square[x + (i * dx)][y + (i * dy)].setShip(new Ship(ship, i));
             }
             return true;
         }
 
-        public Tuple<bool, bool> hitAISquare(int x, int y) /* Tuple -> first item whether the square was hit, second is whether the square was a ship */
+        public bool hitAISquare(int x, int y) /* Tuple -> first item whether the square was hit, second is whether the square was a ship */
         {
             if (playerAISquare[x][y].isHit() == true)
             {
-                return new Tuple<bool, bool>(false, false);
+                return false;
             }
             
             playerAISquare[x][y].setHit(true);
 
-            if (playerAISquare[x][y].getShip() == Ships.NONE)
-            {
-                return new Tuple<bool, bool>(true, false);
-            }
-
-            return new Tuple<bool, bool>(true, true);
+            return true;
         }
 
     }

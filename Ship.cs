@@ -50,6 +50,11 @@ namespace Battleships
             return this.size;
         }
 
+        public int getNumShips()
+        {
+            return this.numShips;
+        }
+
         public static bool operator ==(Ship ship1, Ship ship2)
         {
             /* This allows ships with different shipPiece variables to be equal */
@@ -61,8 +66,6 @@ namespace Battleships
         {
             return !(ship1 == ship2);
         }
-
-
 
     }
 }
