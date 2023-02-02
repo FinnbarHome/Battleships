@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleships
 {
-    internal class GridSquare
+    public class GridSquare
     {
         Ship ship = Ships.NONE;
         bool hit = false;

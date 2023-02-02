@@ -13,7 +13,7 @@ namespace Battleships
 {
     public partial class MainGrid : UserControl
     {
-        private GameState gameState = null;
+        GameState gameState = null;
         private Button[][] enemyGridLayout = new Button[7][];
         private Button[][] playerGridLayout = new Button[7][];
 
@@ -27,7 +27,6 @@ namespace Battleships
             }
             InitializeComponent();
             /* In Truth, this will be passed in from somewhere else, but for testing.. */
-            gameState = new GameState(Difficulty.EASY);
         }
 
         private Button createButtonAttributes()

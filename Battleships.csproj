@@ -53,6 +53,12 @@
     <Compile Include="BattleShipsForm.Designer.cs">
       <DependentUpon>BattleShipsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChoosePlacesGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ChoosePlacesGrid.Designer.cs">
+      <DependentUpon>ChoosePlacesGrid.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameState.cs" />
     <Compile Include="GridSquare.cs" />
     <Compile Include="MainGrid.cs">
@@ -85,6 +91,9 @@
     <Compile Include="Ships.cs" />
     <EmbeddedResource Include="BattleShipsForm.resx">
       <DependentUpon>BattleShipsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoosePlacesGrid.resx">
+      <DependentUpon>ChoosePlacesGrid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainGrid.resx">
       <DependentUpon>MainGrid.cs</DependentUpon>

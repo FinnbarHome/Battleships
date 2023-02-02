@@ -25,10 +25,12 @@ namespace Battleships
                 this.Dispose();
         }
 
-        private void btnEasy_Click(object sender, EventArgs e)
+
+        private void btn_Click(object sender, EventArgs e)
         {
-            MainGrid mainMenuView = new MainGrid();
-            this.ParentForm.Controls.Add(mainMenuView);
+            Button btn = (Button)sender;
+            ChoosePlacesGrid choosePlaces = new ChoosePlacesGrid(new GameState((Difficulty)btn.Tag));
+            this.ParentForm.Controls.Add(choosePlaces);
             this.ParentForm.Controls.Remove(this);
             this.Dispose();
         }

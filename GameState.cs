@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Battleships
 {
-    enum Difficulty
+    public enum Difficulty
     {
         EASY,
         MEDIUM,
         HARD
     };
 
-    internal class GameState
+    public class GameState
     {
         public Difficulty difficulty;
         private AIPlayer ai;

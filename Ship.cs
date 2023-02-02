@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Battleships
 {
-    internal class Ship
+    public class Ship
     {
         int numShips = 0;
         int size = 0;

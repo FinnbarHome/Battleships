@@ -1,0 +1,16 @@
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\bin\Debug\Battleships.exe.config
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\bin\Debug\Battleships.exe
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\bin\Debug\Battleships.pdb
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.csproj.AssemblyReference.cache
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.csproj.SuggestedBindingRedirects.cache
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.BattleShipsForm.resources
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.MainGrid.resources
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.MainMenu.resources
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.Properties.Resources.resources
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.Rules.resources
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.SelectDifficulty.resources
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.csproj.GenerateResource.cache
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.csproj.CoreCompileInputs.cache
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.exe
+C:\Users\Douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.pdb
+C:\Users\douglasinglis\Desktop\Battleships-DouglasWorkingBranch\obj\Debug\Battleships.ChoosePlacesGrid.resources
