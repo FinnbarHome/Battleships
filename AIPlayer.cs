@@ -5,14 +5,17 @@ namespace Battleships
     internal class AIPlayer
     {
         private Difficulty difficulty;
+        private GameState gameState;
 
-        public AIPlayer(Difficulty difficulty)
+        public AIPlayer(GameState gameState, Difficulty difficulty)
         {
             this.difficulty = difficulty;
+            this.gameState = gameState;
         }
 
-        public void generateGrid(GameState gameState, GridSquare[][] playerAISquare)
+        public void generateGrid()
         {
+            /* TODO add some actual AI to the ai... */
             Random rnd = new Random();
             /* Entirely Random */
             for (int i = 0; i < Ships.shipList.Length; i += 1)
@@ -25,7 +28,7 @@ namespace Battleships
                     {
                         int x = rnd.Next(0, 7);
                         int y = rnd.Next(0, 7);
-                        success = gameState.placePieceOnGrid(playerAISquare, ship, x, y, 1 * (j % 2), 1 * ((j + 1) % 2));
+                        success = gameState.placePieceOnAIGrid(ship, x, y, 1 * (j % 2), 1 * ((j + 1) % 2));
                     }
                 }
             }

@@ -13,6 +13,7 @@ namespace Battleships
         int numShips = 0;
         int size = 0;
         int shipPiece = 0;
+        int[] direction = null;
         Image[] shipImage = null;
         Image thumbnailImage = null;
         String shipName = "";
@@ -24,20 +25,27 @@ namespace Battleships
             this.shipName = shipName;
             this.thumbnailImage = thumbnailImage;
             this.shipPiece = 0;
+            this.direction = new int[2];
         }
 
-        public Ship (Ship baseShip, int shipPiece)
+        public Ship (Ship baseShip, int shipPiece, int[] direction)
         {
             this.numShips = baseShip.numShips;
             this.size = baseShip.size;
             this.shipImage = baseShip.shipImage;
             this.shipName = baseShip.shipName;
             this.shipPiece = shipPiece;
+            this.direction = direction;
         }
 
         public Image getImage()
         {
             return shipImage[shipPiece];
+        }
+
+        public int[] getDirection()
+        {
+            return this.direction;
         }
 
         public Image getThumbnailImage()
@@ -55,6 +63,11 @@ namespace Battleships
             return this.numShips;
         }
 
+        public int getShipPiece()
+        {
+            return this.shipPiece;
+        }
+
         public static bool operator ==(Ship ship1, Ship ship2)
         {
             /* This allows ships with different shipPiece variables to be equal */
@@ -66,6 +79,14 @@ namespace Battleships
         {
             return !(ship1 == ship2);
         }
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

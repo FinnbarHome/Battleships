@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,6 +30,16 @@ namespace Battleships
             gameState = new GameState(Difficulty.EASY);
         }
 
+        private Button createButtonAttributes()
+        {
+            Button button = new Button();
+            button.Margin = new System.Windows.Forms.Padding(0);
+            button.FlatStyle = FlatStyle.Flat;
+            button.FlatAppearance.BorderSize = 0;
+            button.Dock = DockStyle.Fill;
+            return button;
+        }
+
 
         private void updateGrid()
         {
@@ -37,23 +48,25 @@ namespace Battleships
                 for (int y = 0; y < this.enemyGrid.ColumnCount; y++)
                 {
                     /* Enemy grid, doesn't show ship unless ship hit */
-                    var enemyGridBtn = new Button();
+                    Button enemyGridBtn = createButtonAttributes();
                     enemyGridBtn.BackgroundImage = Ships.NONE.getImage();
                     if (gameState.getAISquare(x, y).isHit())
                     {
                         enemyGridBtn.Text = "X";
                         enemyGridBtn.ForeColor = Color.Red;
                         enemyGridBtn.Font = new Font(enemyGridBtn.Font.FontFamily, 28);
-                        enemyGridBtn.BackgroundImage = gameState.getAISquare(x, y).getShip().getImage();
+                        if (gameState.getAISquare(x, y).getShip() != Ships.NONE)
+                        {
+                            /* Don't show the exact ship, this will give the game away. */
+                            enemyGridBtn.BackgroundImage = Properties.Resources.ShipSquare;
+                        }
                     }
-                    enemyGridBtn.Margin = new System.Windows.Forms.Padding(0);
-                    enemyGridBtn.FlatStyle = FlatStyle.Flat;
-                    enemyGridBtn.FlatAppearance.BorderSize = 0;
-                    enemyGridBtn.Dock = DockStyle.Fill;
+                        
                     enemyGridBtn.Tag = new int[2] { x, y };
                     enemyGridBtn.Click += enemyBtn_Click;
 
-                    if (enemyGridLayout[x][y] == null || enemyGridLayout[x][y].Text != enemyGridBtn.Text || enemyGridLayout[x][y].BackgroundImage != enemyGridBtn.BackgroundImage)
+                    /* Verify the grid needs updated to improve efficiency */
+                    if (enemyGridLayout[x][y] == null || enemyGridLayout[x][y].Text != enemyGridBtn.Text)
                     {
                         if(enemyGridLayout[x][y] != null)
                         {
@@ -64,17 +77,13 @@ namespace Battleships
                     }
 
                     /* playerShips */
-                    var playerShipBtn = new Button();
+                    Button playerShipBtn = createButtonAttributes();
                     playerShipBtn.BackgroundImage = gameState.getPlayer1Square(x, y).getShip().getImage();
                     if (gameState.getPlayer1Square(x, y).isHit())
                     {
                         playerShipBtn.Text = "X";
                         playerShipBtn.ForeColor = Color.Red;
                     }
-                    playerShipBtn.Margin = new System.Windows.Forms.Padding(0);
-                    playerShipBtn.FlatStyle = FlatStyle.Flat;
-                    playerShipBtn.FlatAppearance.BorderSize = 0;
-                    playerShipBtn.Dock = DockStyle.Fill;
                     playerShipBtn.Enabled = false;
 
                     if (playerGridLayout[x][y] == null || playerGridLayout[x][y].Text != playerShipBtn.Text || playerGridLayout[x][y].BackgroundImage != playerShipBtn.BackgroundImage)
@@ -102,10 +111,24 @@ namespace Battleships
         {
             Button sentButton = (Button)sender;
             int[] coordinates = (int[])sentButton.Tag;
-            if (gameState.hitAISquare(coordinates[0], coordinates[1])) {
+            if (gameState.hitAISquare(coordinates[0], coordinates[1]))
+            {
                 updateGrid();
-            }
+                if (gameState.sankAIBattleship(coordinates[0], coordinates[1]))
+                {
+                    MessageBox.Show("You sank my battleship", "You sank my battleship!!");
 
+                    int winState = gameState.checkWin();
+                    if (winState > 0)
+                    {
+                        MessageBox.Show("You win!", "You win!");
+                    }
+                    else if (winState < 0)
+                    {
+                        MessageBox.Show("You lose!", "You lose!");
+                    }
+                }
+            }
 
         }
 
