@@ -15,11 +15,12 @@ namespace Battleships
 {
     public partial class form : Form
     {
-
-        public System.Windows.Forms.Label[,] LabelGrid =  new System.Windows.Forms.Label[10, 10];
+        public static int colNum = 10;
+        public static int rowNum = 10;
+        public System.Windows.Forms.Label[,] LabelGrid =  new System.Windows.Forms.Label[colNum, rowNum];
+        public string[,] EnemyGrid = new string[colNum, rowNum];
         private bool initGrid = false;
-        private int colNum = 10;
-        private int rowNum = 10;
+        
 
         public form()
         {
@@ -73,8 +74,8 @@ namespace Battleships
 
             InitialisePlayerGrid();
 
-            UpdateLabelText(0, 0, "S");
-            if (hasAIShotThere(0, 0) == true){
+            UpdateLabelText(0, 0, "F");
+            if (HasThisTileBeenFiredAt(0, 0, 0) == true){
                 Debug.WriteLine("This has been shot at");
             }
         }
@@ -129,16 +130,77 @@ namespace Battleships
         }
 
         //Method to check if AI has shot there before
-        private bool hasAIShotThere(int x, int y){
-            if (LabelGrid[x, y].Text == "S") {
-                return true;
-            }else{
-                return false;
+        private bool HasThisTileBeenFiredAt(int x, int y, int AIOrPlayer)
+        {
+            //If it is the AI
+            if (AIOrPlayer == 0)
+            {
+                if (LabelGrid[x, y].Text == "F")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+            //If its the player
+            else
+            {
+                if (EnemyGrid[x,y]== "F")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
+        }
+
+        private bool ValidateShipPlacement(int AIOrPlayer, int x1, int y1, int x2, int y2)
+        {
+            //If it is the AI
+            if (AIOrPlayer == 0) {
+                //Check if not in bounds of grid
+                if(x1 > 10 || y1 > 10 || x2> 10 || y2 > 10) {
+                    return false;
+                    if(x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    //CODE NOT DONE BUT NEEDS TO CHECK FOR OVERLAP
+                    return true;
+                }
+            }
+            //If its the player
+            else
+            {
+                //Check if not in bounds of grid
+                if (x1 > 10 || y1 > 10 || x2 > 10 || y2 > 10)
+                {
+                    return false;
+                    if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    //CODE NOT DONE BUT NEEDS TO CHECK FOR OVERLAP
+                    return true;
+                }
+            }
+
         }
 
         //This method updates the label grid with given x and y co-ords and a text field
-        private void UpdateLabelText(int x, int y, String text){
+        private void UpdateLabelText(int x, int y, String text)
+        {
             LabelGrid[x,y].Text = text;
         }
 
