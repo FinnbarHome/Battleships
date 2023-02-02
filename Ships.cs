@@ -14,7 +14,7 @@ namespace Battleships
         public static Ship BATTLESHIP = new Ship(1, 4, new Image[4] { Properties.Resources.ShipSquare, Properties.Resources.ShipSquare, Properties.Resources.ShipSquare, Properties.Resources.ShipSquare }, Properties.Resources.ShipSquare, "Battleship");
         public static Ship CRUISER = new Ship(1, 3, new Image[3] { Properties.Resources.ShipSquare, Properties.Resources.ShipSquare, Properties.Resources.ShipSquare }, Properties.Resources.ShipSquare, "Cruiser");
         public static Ship DESTROYER = new Ship(2, 2, new Image[2] { Properties.Resources.ShipSquare, Properties.Resources.ShipSquare }, Properties.Resources.ShipSquare, "Destroyer");
-        public static Ship SUBMARINE = new Ship(2, 1, new Image[1] { Properties.Resources.EmptySquare }, Properties.Resources.ShipSquare, "Submarine");
+        public static Ship SUBMARINE = new Ship(2, 1, new Image[1] { Properties.Resources.ShipSquare }, Properties.Resources.ShipSquare, "Submarine");
         public static Ship[] shipList = new Ship[5] {AIRCRAFT_CARRIER, BATTLESHIP, CRUISER, DESTROYER, SUBMARINE};
     }
 }

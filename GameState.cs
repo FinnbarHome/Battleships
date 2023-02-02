@@ -64,6 +64,10 @@ namespace Battleships
         {
             return placePieceOnGrid(playerAISquare, ship, x, y, dx, dy);
         }
+        public bool placePieceOnPlayerOneGrid(Ship ship, int x, int y, int dx, int dy)
+        {
+            return placePieceOnGrid(player1Square, ship, x, y, dx, dy);
+        }
 
         private bool placePieceOnGrid(GridSquare[][] square, Ship ship, int x, int y, int dx, int dy)
         {
