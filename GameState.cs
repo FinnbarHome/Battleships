@@ -16,53 +16,55 @@ namespace Battleships
     public class GameState
     {
         public Difficulty difficulty;
-        private AIPlayer ai;
-        public GridSquare[][] player1Square = new GridSquare[7][];
-        public GridSquare[][] playerAISquare = new GridSquare[7][];
+        public AIPlayer player2;
+        public GridSquare[][] player1Square = new GridSquare[10][];
+        public GridSquare[][] player2Square = new GridSquare[10][];
 
         int player1Hits = 0;
-        int playerAIHits = 0;
+        int player2Hits = 0;
 
         public GameState(Difficulty difficulty)
         {
             /* Initialise Variables */
-            ai = new AIPlayer(this, difficulty);
+            player2 = new AIPlayer(this, difficulty);
             this.difficulty = difficulty;
             this.player1Hits = 0;
-            this.playerAIHits = 0;
+            this.player2Hits = 0;
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < player1Square.Length; i++)
             {
                 
-                player1Square[i] = new GridSquare[7];
-                playerAISquare[i] = new GridSquare[7];
-                for (int j = 0; j < 7; j++)
+                player1Square[i] = new GridSquare[10];
+                player2Square[i] = new GridSquare[10];
+                for (int j = 0; j < player1Square[i].Length; j++)
                 {
                     player1Square[i][j] = new GridSquare();
-                    playerAISquare[i][j] = new GridSquare();
+                    player2Square[i][j] = new GridSquare();
                 }
                 
             }
-            /* Create the AI Grid */
-            ai.generateGrid();
+            /* Create the AI Players Grid */
+            player2.generateGrid();
         }
+        /* TODO - for save/load */
         public GameState(String gameFile)
         {
         }
 
+        /* Get a specific Square from the Player 1 Grid */
         public GridSquare getPlayer1Square(int x, int y)
         {
             return player1Square[x][y];
         }
-
-        public GridSquare getAISquare(int x, int y)
+        /* Get a specific Square from the Player 2 Grid */
+        public GridSquare getPlayer2Square(int x, int y)
         {
-            return playerAISquare[x][y];
+            return player2Square[x][y];
         }
 
-        public bool placePieceOnAIGrid(Ship ship, int x, int y, int dx, int dy)
+        public bool placePieceOnPlayer2Grid(Ship ship, int x, int y, int dx, int dy)
         {
-            return placePieceOnGrid(playerAISquare, ship, x, y, dx, dy);
+            return placePieceOnGrid(player2Square, ship, x, y, dx, dy);
         }
         public bool placePieceOnPlayerOneGrid(Ship ship, int x, int y, int dx, int dy)
         {
@@ -72,7 +74,9 @@ namespace Battleships
         private bool placePieceOnGrid(GridSquare[][] square, Ship ship, int x, int y, int dx, int dy)
         {
             /* Verify the piece will stay within the grid */
-            if((x + ship.getSize()*dx > 7) || (y + ship.getSize() * dy > 7))
+
+            /* Note dx = 0 if the ship is vertical, dy = 0 if ship is horizontal */
+            if((x + ship.getSize()*dx > 10) || (y + ship.getSize() * dy > 10))
             {
                 return false;
             }
@@ -85,6 +89,7 @@ namespace Battleships
                     return false;
                 }
             }
+            /* Set the ship on the given pieces to our new ship */
             for(int i = 0; i < ship.getSize(); i += 1)
             {
                 square[x + (i * dx)][y + (i * dy)].setShip(new Ship(ship, i, new int[2] {dx, dy}));
@@ -92,19 +97,23 @@ namespace Battleships
             return true;
         }
 
-        public bool sankAIBattleship(int x, int y)
+        public bool sankPlayer2Battleship(int x, int y)
         {
-            return sankBattleship(playerAISquare, x, y);
+            return sankBattleship(player2Square, x, y);
         }
 
         public bool sankBattleship(GridSquare[][] board, int x, int y)
         {
+            /* If we hit a square with no ship we've sank nothing. */
             Ship ship = board[x][y].getShip();
             if (ship == Ships.NONE)
             {
                 return false;
             }
             int[] shipDirection = ship.getDirection();
+
+            /* Use the ship direction and the piece of the ship we have to find the start of the ship */
+           
             int startX = x - shipDirection[0] * ship.getShipPiece();
             int startY = y - shipDirection[1] * ship.getShipPiece();
 
@@ -119,25 +128,39 @@ namespace Battleships
             return true;
         }
 
-        public bool hitAISquare(int x, int y)
+        public bool hitPlayer1Square(int x, int y)
         {
-            Tuple<bool, int> hitRet = hitSquare(playerAISquare, x, y);
-            playerAIHits += hitRet.Item2;
+            Tuple<bool, int> hitRet = hitSquare(player1Square, x, y);
+            player1Hits += hitRet.Item2;
+            /* Return whether or not the hit was successful */
+            return hitRet.Item1;
+        }
+
+
+        public bool hitPlayer2Square(int x, int y)
+        {
+            Tuple<bool, int> hitRet = hitSquare(player2Square, x, y);
+            player2Hits += hitRet.Item2;
+            /* Return whether or not the hit was successful */
             return hitRet.Item1;
         }
 
         private Tuple<bool, int> hitSquare(GridSquare[][] board, int x, int y)
         {
-            if (playerAISquare[x][y].isHit() == true)
+            /* Don't hit a already hit square */
+            if (board[x][y].isHit() == true)
             {
                 return new Tuple<bool, int>(false, 0);
             }
+            /* Hit the square */
+            board[x][y].setHit(true);
 
-            playerAISquare[x][y].setHit(true);
-            if (playerAISquare[x][y].getShip() != Ships.NONE)
+            /* If the square has a ship then we've hit one of the players pieces, so return this, along with the fact our hit was successful */
+            if (board[x][y].getShip() != Ships.NONE)
             {
                 return new Tuple<bool, int>(true, 1);
             }
+            /* Otherwise we've got rid of 0 pieces */
             return new Tuple<bool, int>(true, 0);
 
             
@@ -146,21 +169,24 @@ namespace Battleships
 
         public int checkWin()
         {
+            /* Count up how many pieces we need to hit in order to win */
             int numSquaresToHit = 0;
             for(int i = 0; i < Ships.shipList.Length; i += 1)
             {
                 numSquaresToHit += Ships.shipList[i].getSize() * Ships.shipList[i].getNumShips();
             }
+            /* If player 1 has had all his ships hit return -1 */
             if(player1Hits == numSquaresToHit)
             {
                 return -1;
             }
-            if (playerAIHits == numSquaresToHit)
+            /* If player 2 has had all his ships hit return 1 */
+            if (player2Hits == numSquaresToHit)
             {
                 return 1;
             }
+            /* If the game is unfinished return 0 */
             return 0;
         }
-
     }
 }

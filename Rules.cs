@@ -17,8 +17,9 @@ namespace Battleships
             InitializeComponent();
         }
 
-        private void lblReturnToMainMenu_Click(object sender, EventArgs e)
+        private void btnReturnToMainMenu_Click(object sender, EventArgs e)
         {
+            /* Load the main menu view and unload the rules view. */
             MainMenu mainMenuView = new MainMenu();
             this.ParentForm.Controls.Add(mainMenuView);
             this.ParentForm.Controls.Remove(this);

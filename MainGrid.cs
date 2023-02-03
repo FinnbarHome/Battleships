@@ -14,23 +14,33 @@ namespace Battleships
     public partial class MainGrid : UserControl
     {
         GameState gameState = null;
-        private Button[][] enemyGridLayout = new Button[7][];
-        private Button[][] playerGridLayout = new Button[7][];
+        private Button[][] enemyGridLayout = null;
+        private Button[][] playerGridLayout = null;
 
 
-        public MainGrid()
+        public MainGrid(GameState gameState)
         {
-            for(int i = 0; i < 7; i += 1)
+            /* Setup our Starting Variables */
+            this.gameState = gameState;
+            enemyGridLayout = new Button[gameState.player1Square.Length][];
+            playerGridLayout = new Button[gameState.player1Square.Length][];
+            for (int i = 0; i < gameState.player1Square.Length; i += 1)
             {
-                enemyGridLayout[i] = new Button[7];
-                playerGridLayout[i] = new Button[7];
+                enemyGridLayout[i] = new Button[gameState.player1Square[i].Length];
+                playerGridLayout[i] = new Button[gameState.player1Square[i].Length];
             }
             InitializeComponent();
-            /* In Truth, this will be passed in from somewhere else, but for testing.. */
+        }
+
+        private void MainGrid_Load(object sender, EventArgs e)
+        {
+            /* Setup our Grid to start */
+            updateGrid();
         }
 
         private Button createButtonAttributes()
         {
+            /* Create a button and style it appropriately */
             Button button = new Button();
             button.Margin = new System.Windows.Forms.Padding(0);
             button.FlatStyle = FlatStyle.Flat;
@@ -46,51 +56,81 @@ namespace Battleships
             {
                 for (int y = 0; y < this.enemyGrid.ColumnCount; y++)
                 {
-                    /* Enemy grid, doesn't show ship unless ship hit */
-                    Button enemyGridBtn = createButtonAttributes();
-                    enemyGridBtn.BackgroundImage = Ships.NONE.getImage();
-                    if (gameState.getAISquare(x, y).isHit())
+
+                    Button enemyGridBtn = null;
+                    if (enemyGridLayout[x][y] != null)
                     {
+                        /* If a button has been created don't recreate it */
+                        enemyGridBtn = enemyGridLayout[x][y];
+                    }
+                    else
+                    {
+                        enemyGridBtn = createButtonAttributes();
+
+                        /* Set the default background image */
+                        enemyGridBtn.BackgroundImage = Ships.NONE.getImage();
+
+                        /* Tag our button with its x and y co ordinaties */
+
+                        enemyGridBtn.Tag = new int[2] { x, y };
+
+                        /* Add our Click handler */
+                        enemyGridBtn.Click += enemyBtn_Click;
+                    }
+
+                    /* Check if the square was hit */
+                    if (gameState.getPlayer2Square(x, y).isHit())
+                    {
+                        /* Add a marker the square was hit */
                         enemyGridBtn.Text = "X";
                         enemyGridBtn.ForeColor = Color.Red;
-                        enemyGridBtn.Font = new Font(enemyGridBtn.Font.FontFamily, 28);
-                        if (gameState.getAISquare(x, y).getShip() != Ships.NONE)
+                        enemyGridBtn.Font = new Font(enemyGridBtn.Font.FontFamily, 16);
+
+                        /* Check if the hit square has a ship */
+                        if (gameState.getPlayer2Square(x, y).getShip() != Ships.NONE)
                         {
                             /* Don't show the exact ship, this will give the game away. */
                             enemyGridBtn.BackgroundImage = Properties.Resources.ShipSquare;
                         }
                     }
-                        
-                    enemyGridBtn.Tag = new int[2] { x, y };
-                    enemyGridBtn.Click += enemyBtn_Click;
 
-                    /* Verify the grid needs updated to improve efficiency */
-                    if (enemyGridLayout[x][y] == null || enemyGridLayout[x][y].Text != enemyGridBtn.Text)
+                    /* Add the square to the grid if it didn't exist */
+                    if (enemyGridLayout[x][y] == null)
                     {
-                        if(enemyGridLayout[x][y] != null)
-                        {
-                            this.enemyGrid.Controls.Remove(enemyGridLayout[x][y]);
-                        }
                         enemyGridLayout[x][y] = enemyGridBtn;
                         this.enemyGrid.Controls.Add(enemyGridBtn, x, y);
                     }
 
-                    /* playerShips */
-                    Button playerShipBtn = createButtonAttributes();
+                    Button playerShipBtn = null;
+                    if (playerGridLayout[x][y] != null)
+                    {
+                        /* If a button has been created don't recreate it */
+                        playerShipBtn = playerGridLayout[x][y];
+                    }
+                    else
+                    {
+                        playerShipBtn = createButtonAttributes();
+                        /* Disable the button */
+                        playerShipBtn.Enabled = false;
+                    }
+
+                    /* Set the background of our image based on the ship that it has */
                     playerShipBtn.BackgroundImage = gameState.getPlayer1Square(x, y).getShip().getImage();
+
+
+                    /* Check if the square was hit */
                     if (gameState.getPlayer1Square(x, y).isHit())
                     {
+                        /* Add a marker the square was hit */
                         playerShipBtn.Text = "X";
                         playerShipBtn.ForeColor = Color.Red;
-                    }
-                    playerShipBtn.Enabled = false;
+                        playerShipBtn.Font = new Font(playerShipBtn.Font.FontFamily, 10);
 
-                    if (playerGridLayout[x][y] == null || playerGridLayout[x][y].Text != playerShipBtn.Text || playerGridLayout[x][y].BackgroundImage != playerShipBtn.BackgroundImage)
+                    }
+
+                    /* Add the square to the grid if it didn't exist */
+                    if (playerGridLayout[x][y] == null)
                     {
-                        if (playerGridLayout[x][y] != null)
-                        {
-                            this.playerShips.Controls.Remove(playerGridLayout[x][y]);
-                        }
                         playerGridLayout[x][y] = playerShipBtn;
                         this.playerShips.Controls.Add(playerShipBtn, x, y);
                     }
@@ -99,34 +139,42 @@ namespace Battleships
             }
         }
 
-        private void MainGrid_Load(object sender, EventArgs e)
-        {
-
-            updateGrid();
-
-        }
-
         private void enemyBtn_Click(object sender, EventArgs e)
         {
+            /* Get the button we've clicked and its co ordinates */
             Button sentButton = (Button)sender;
             int[] coordinates = (int[])sentButton.Tag;
-            if (gameState.hitAISquare(coordinates[0], coordinates[1]))
+
+            /* Check if the square selected was hit */
+            if (gameState.hitPlayer2Square(coordinates[0], coordinates[1]))
             {
+                /* Update the grid */
                 updateGrid();
-                if (gameState.sankAIBattleship(coordinates[0], coordinates[1]))
+
+                /* Check if we've sank a battleship */
+                if (gameState.sankPlayer2Battleship(coordinates[0], coordinates[1]))
                 {
+                    /* If we have send a message to the user */
                     MessageBox.Show("You sank my battleship", "You sank my battleship!!");
 
-                    int winState = gameState.checkWin();
-                    if (winState > 0)
+                    /* Check if we've won, and announce it if so. */
+                    if (gameState.checkWin() > 0)
                     {
                         MessageBox.Show("You win!", "You win!");
                     }
-                    else if (winState < 0)
-                    {
-                        MessageBox.Show("You lose!", "You lose!");
-                    }
+
                 }
+
+                /* Allow the AI to hit a square and update the grid */
+                gameState.player2.hitSquare();
+                updateGrid();
+
+                /* Check if the AI has won the game */
+                if (gameState.checkWin() < 0)
+                {
+                    MessageBox.Show("You lose!", "You lose!");
+                }
+
             }
 
         }

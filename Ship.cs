@@ -81,7 +81,8 @@ namespace Battleships
         }
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            Ship ship = (Ship)obj;
+            return this == ship;
         }
 
         public override int GetHashCode()

@@ -19,6 +19,7 @@ namespace Battleships
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
+            /* If we're starting a new game we need to move to the difficulty view. */
             SelectDifficulty difficultyView = new SelectDifficulty();
             this.ParentForm.Controls.Add(difficultyView);
             this.ParentForm.Controls.Remove(this);
@@ -32,6 +33,7 @@ namespace Battleships
 
         private void btnRules_Click(object sender, EventArgs e)
         {
+            /* Move to the rules view */
             Rules ruleView = new Rules();
             this.ParentForm.Controls.Add(ruleView);
             this.ParentForm.Controls.Remove(this);
@@ -45,6 +47,7 @@ namespace Battleships
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            /* Exit the game */
             this.ParentForm.Close();
         }
     }
