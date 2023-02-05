@@ -55,6 +55,7 @@ namespace Battleships
                 /* Add our event handlers */
                 shipBtn.Click += ShipBtn_Click;
                 shipBtn.MouseMove += ChoosePlacesGrid_MouseMove;
+                shipBtn.MouseUp += ChoosePlacesGrid_RightClick;
 
                 /* Add our button to the screen and our display */
                 this.SelectableShips.Controls.Add(shipBtn, i, 0);
@@ -78,6 +79,7 @@ namespace Battleships
             gridBtn.Dock = DockStyle.Fill;
             gridBtn.MouseMove += ChoosePlacesGrid_MouseMove;
             gridBtn.Click += gridBtn_Click;
+            gridBtn.MouseUp += ChoosePlacesGrid_RightClick;
             return gridBtn;
         }
 
