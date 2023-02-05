@@ -64,7 +64,9 @@
             this.PlacementGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.PlacementGrid.Size = new System.Drawing.Size(300, 300);
             this.PlacementGrid.TabIndex = 1;
+            this.PlacementGrid.Paint += new System.Windows.Forms.PaintEventHandler(this.PlacementGrid_Paint);
             this.PlacementGrid.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.PlacementGrid.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
             // 
             // SelectableShips
             // 
@@ -89,6 +91,7 @@
             this.SelectableShips.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
             this.SelectableShips.Size = new System.Drawing.Size(300, 50);
             this.SelectableShips.TabIndex = 2;
+            this.SelectableShips.Paint += new System.Windows.Forms.PaintEventHandler(this.SelectableShips_Paint);
             this.SelectableShips.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
             // 
             // lblWelcome
@@ -137,6 +140,7 @@
             this.Size = new System.Drawing.Size(500, 600);
             this.Load += new System.EventHandler(this.ChoosePlacesGrid_Load);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
             this.ResumeLayout(false);
 
         }

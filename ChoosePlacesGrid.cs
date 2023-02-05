@@ -299,5 +299,45 @@ namespace Battleships
             this.ParentForm.Controls.Remove(this);
             this.Dispose();
         }
+
+        private void PlacementGrid_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void SelectableShips_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ChoosePlacesGrid_RightClick(object sender, MouseEventArgs e)
+        {
+            //right click to rotate the square
+            if(e.Button == MouseButtons.Right)
+            {
+                if (selectedBox == null)
+                {
+                    return;
+                }
+                Tuple<Ship, int> tag = (Tuple<Ship, int>)selectedBox.Tag;
+
+                /* If our ship is horizontal currently */
+                if (shipDirection[0] == 1)
+                {
+                    shipDirection = new int[2] { 0, 1 };
+                    /* Calculate the width and height based on the direction */
+                    selectedBox.Width /= tag.Item1.getSize();
+                    selectedBox.Height *= tag.Item1.getSize();
+
+                }
+                else
+                {
+                    shipDirection = new int[2] { 1, 0 };
+                    /* Calculate the width and height based on the direction */
+                    selectedBox.Width *= tag.Item1.getSize();
+                    selectedBox.Height /= tag.Item1.getSize();
+                }
+            }
+        }
     }
 }
