@@ -15,8 +15,32 @@ namespace Battleships
 
         public void hitSquare()
         {
+            //Converts difficulty var to a string
+            string diff = difficulty.ToString();
+
+            //For easy difficulty
+            if (diff == "EASY")
+            {
+                randHittingAI();
+            }
+            //For med difficulty
+            else if (diff == "MEDIUM")
+            {
+                randHittingAI();
+            }
+            //For hard difficulty
+            else if (diff == "HARD")
+            {
+                randHittingAI();
+            }
+
+        }
+
+        //This is the Easy AI, it hits squares completely randomly
+        public void randHittingAI()
+        {
             bool finished = false;
-            while(!finished)
+            while (!finished)
             {
                 int x = rnd.Next(0, gameState.player1Square.Length);
                 int y = rnd.Next(0, gameState.player1Square.Length);
