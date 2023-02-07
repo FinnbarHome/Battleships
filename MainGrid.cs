@@ -76,6 +76,12 @@ namespace Battleships
 
                         /* Add our Click handler */
                         enemyGridBtn.Click += enemyBtn_Click;
+
+                        /* Add our hover handlers */
+
+                        enemyGridBtn.MouseEnter += EnemyGridBtn_MouseEnter;
+                        enemyGridBtn.MouseLeave += EnemyGridBtn_MouseLeave;
+
                     }
 
                     /* Check if the square was hit */
@@ -137,6 +143,28 @@ namespace Battleships
 
                 }
             }
+        }
+
+        private void EnemyGridBtn_MouseLeave(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            int[] coordinates = (int[])button.Tag;
+            if (gameState.getPlayer2Square(coordinates[0], coordinates[1]).isHit())
+            {
+                return;
+            }
+            button.BackgroundImage = Properties.Resources.EmptySquare;
+        }
+
+        private void EnemyGridBtn_MouseEnter(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            int[] coordinates = (int[])button.Tag;
+            if (gameState.getPlayer2Square(coordinates[0], coordinates[1]).isHit())
+            {
+                return;
+            }
+            button.BackgroundImage = Properties.Resources.SquareHover;
         }
 
         private void enemyBtn_Click(object sender, EventArgs e)

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -77,9 +78,16 @@ namespace Battleships
             gridBtn.FlatStyle = FlatStyle.Flat;
             gridBtn.FlatAppearance.BorderSize = 0;
             gridBtn.Dock = DockStyle.Fill;
-            gridBtn.MouseMove += ChoosePlacesGrid_MouseMove;
-            gridBtn.Click += gridBtn_Click;
-            gridBtn.MouseUp += ChoosePlacesGrid_RightClick;
+
+            gridBtn.Click += new EventHandler(gridBtn_Click);
+            gridBtn.MouseDown += new MouseEventHandler(gridBtnTidyHover);
+
+            gridBtn.MouseUp += new MouseEventHandler(ChoosePlacesGrid_RightClick);
+            gridBtn.MouseUp += new MouseEventHandler(gridBtnTidyRotate);
+            
+            gridBtn.MouseMove += new MouseEventHandler(ChoosePlacesGrid_MouseMove);
+            gridBtn.MouseEnter += new EventHandler(gridBtn_MouseEnter);
+            gridBtn.MouseLeave += new EventHandler(gridBtn_MouseLeave);
             return gridBtn;
         }
 
@@ -116,6 +124,82 @@ namespace Battleships
             }
 
         }
+
+        private void gridBtnTidyHover(object sender, EventArgs e)
+        {
+            gridBtn_MouseLeave(sender, e);
+        }
+        private void gridBtnTidyRotate(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Right)
+            {
+                gridBtn_MouseEnter(sender, e);
+            }
+        }
+        private void gridBtn_MouseEnter(object sender, EventArgs e)
+        {
+             Button button = (Button)sender;
+            int[] coordinates = (int[])button.Tag;
+            /* Don't show the hover image if we're not holding a ship, or the square already contains one */
+            if(selectedBox == null || gameState.getPlayer1Square(coordinates[0], coordinates[1]).getShip() != Ships.NONE)
+            {
+                return;
+            }
+            Tuple<Ship, int> tag = (Tuple<Ship, int>)selectedBox.Tag;
+
+            /* Don't escape the bounds of the grid */
+            if(coordinates[0] + shipDirection[0] * (tag.Item1.getSize()-1) >= gameState.player1Square.Length || coordinates[1] + shipDirection[1] * (tag.Item1.getSize()-1) >= gameState.player1Square.Length)
+            {
+                return;
+            }
+
+            for (int i = 0; i < tag.Item1.getSize(); i += 1)
+            {
+                if (gameState.getPlayer1Square(coordinates[0] + shipDirection[0] * i, coordinates[1] + shipDirection[1] * i).getShip() != Ships.NONE)
+                {
+                    return;
+                }
+            }
+
+            for (int i = 0; i < tag.Item1.getSize(); i += 1)
+            {
+                buttonGrid[coordinates[0] + shipDirection[0] * i][coordinates[1] + shipDirection[1] * i].BackgroundImage = Properties.Resources.SquareHover;
+            }
+
+        }
+
+        private void gridBtn_MouseLeave(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            int[] coordinates = (int[])button.Tag;
+
+            /* Don't show the hover image if we're not holding a ship, or the square already contains one */
+            if (selectedBox == null || gameState.getPlayer1Square(coordinates[0], coordinates[1]).getShip() != Ships.NONE)
+            {
+                return;
+            }
+            Tuple<Ship, int> tag = (Tuple<Ship, int>)selectedBox.Tag;
+
+            /* Don't escape the bounds of the grid */
+            if (coordinates[0] + shipDirection[0] * (tag.Item1.getSize() - 1) >= gameState.player1Square.Length || coordinates[1] + shipDirection[1] * (tag.Item1.getSize() - 1) >= gameState.player1Square.Length)
+            {
+                return;
+            }
+
+            for (int i = 0; i < tag.Item1.getSize(); i += 1)
+            {
+                if(gameState.getPlayer1Square(coordinates[0] + shipDirection[0] * i, coordinates[1] + shipDirection[1] * i).getShip() != Ships.NONE)
+                {
+                    return;
+                }
+            }
+
+            for (int i = 0; i < tag.Item1.getSize(); i += 1)
+            {
+                buttonGrid[coordinates[0] + shipDirection[0] * i][coordinates[1] + shipDirection[1] * i].BackgroundImage = Ships.NONE.getImage();
+            }
+        }
+
         private void gridBtn_Click(object sender, EventArgs e)
         {
             Button clickedBtn = (Button)sender;
@@ -218,6 +302,12 @@ namespace Battleships
                 return;
             }
 
+            if(selectedBox != null)
+            {
+                this.Controls.Remove(selectedBox);
+                selectedBox = null;
+            }
+
             /* Otherwise create our picture box */
             createPictureBox(tag);
         }
@@ -234,11 +324,20 @@ namespace Battleships
             newBox.Image = tag.Item1.getThumbnailImage();
 
             /* Assign our ship a horizontal direction */
-            shipDirection = new int[2] { 1, 0 };
+            shipDirection = tag.Item1.getDirection();
 
             /* Calculate the width and height based on the direction, and make sure our image stretches across the whole pictureBox */
-            newBox.Width = tag.Item1.getSize() * (this.PlacementGrid.Width / this.PlacementGrid.ColumnCount);
-            newBox.Height = this.PlacementGrid.Height / this.PlacementGrid.RowCount;
+            if(shipDirection[0] == 1)
+            {
+                newBox.Width = (tag.Item1.getSize()) * (this.PlacementGrid.Width / this.PlacementGrid.ColumnCount);
+                newBox.Height = (this.PlacementGrid.Height / this.PlacementGrid.RowCount);
+            }
+            else
+            {
+                newBox.Width = (this.PlacementGrid.Width / this.PlacementGrid.ColumnCount);
+                newBox.Height = (tag.Item1.getSize()) * (this.PlacementGrid.Height / this.PlacementGrid.RowCount);
+
+            }
             newBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
             /* https://stackoverflow.com/a/60368567 */

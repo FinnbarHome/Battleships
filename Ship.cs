@@ -25,7 +25,7 @@ namespace Battleships
             this.shipName = shipName;
             this.thumbnailImage = thumbnailImage;
             this.shipPiece = 0;
-            this.direction = new int[2];
+            this.direction = new int[2] {1, 0};
         }
 
         public Ship (Ship baseShip, int shipPiece, int[] direction)
@@ -34,6 +34,7 @@ namespace Battleships
             this.size = baseShip.size;
             this.shipImage = baseShip.shipImage;
             this.shipName = baseShip.shipName;
+            this.thumbnailImage = baseShip.thumbnailImage;
             this.shipPiece = shipPiece;
             this.direction = direction;
         }
@@ -50,7 +51,7 @@ namespace Battleships
 
         public Image getThumbnailImage()
         {
-            return thumbnailImage;
+            return this.thumbnailImage;
         }
 
         public int getSize()
