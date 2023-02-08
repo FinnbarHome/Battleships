@@ -19,9 +19,8 @@ namespace Battleships
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            /* If we're starting a new game we need to move to the difficulty view. */
-            SelectDifficulty difficultyView = new SelectDifficulty();
-            this.ParentForm.Controls.Add(difficultyView);
+            NumPlayerControl numPlayerView = new NumPlayerControl();
+            this.ParentForm.Controls.Add(numPlayerView);
             this.ParentForm.Controls.Remove(this);
             this.Dispose();
         }

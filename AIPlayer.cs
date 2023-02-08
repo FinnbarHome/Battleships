@@ -8,15 +8,15 @@ namespace Battleships
     {
         private Difficulty difficulty;
         private GameState gameState;
-       
+
         private Random rnd = new Random();
-        
+
 
         public AIPlayer(GameState gameState, Difficulty difficulty)
         {
             this.difficulty = difficulty;
             this.gameState = gameState;
-            
+
         }
 
         public void hitSquare()
@@ -124,7 +124,7 @@ namespace Battleships
 
         }
 
-        public void generateGrid()
+        public void generatePlayer2Grid()
         {
             /* TODO add some actual AI to the ai... */
 
@@ -139,7 +139,27 @@ namespace Battleships
                     {
                         int x = rnd.Next(0, gameState.player1Square.Length);
                         int y = rnd.Next(0, gameState.player1Square.Length);
-                        success = gameState.placePieceOnPlayer2Grid(ship, x, y, 1 * (j % 2), 1 * ((j + 1) % 2));
+                        success = gameState.placePieceOnPlayerTwoGrid(ship, x, y, 1 * (j % 2), 1 * ((j + 1) % 2));
+                    }
+                }
+            }
+        }
+        public void generatePlayer1Grid()
+        {
+            /* TODO add some actual AI to the ai... */
+
+            /* Entirely Random */
+            for (int i = 0; i < Ships.shipList.Length; i += 1)
+            {
+                Ship ship = Ships.shipList[i];
+                for (int j = 0; j < ship.getNumShips(); j += 1)
+                {
+                    bool success = false;
+                    while (!success)
+                    {
+                        int x = rnd.Next(0, gameState.player1Square.Length);
+                        int y = rnd.Next(0, gameState.player1Square.Length);
+                        success = gameState.placePieceOnPlayerOneGrid(ship, x, y, 1 * (j % 2), 1 * ((j + 1) % 2));
                     }
                 }
             }

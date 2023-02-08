@@ -77,6 +77,12 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="NumPlayerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NumPlayerControl.Designer.cs">
+      <DependentUpon>NumPlayerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules.cs">
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NumPlayerControl.resx">
+      <DependentUpon>NumPlayerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

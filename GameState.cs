@@ -15,7 +15,8 @@ namespace Battleships
     {
         EASY,
         MEDIUM,
-        HARD
+        HARD,
+        TWOPLAYER // If two player game
     };
 
     [Serializable]
@@ -25,7 +26,6 @@ namespace Battleships
         public AIPlayer player2;
         public GridSquare[][] player1Square = new GridSquare[10][];
         public GridSquare[][] player2Square = new GridSquare[10][];
-
         int player1Hits = 0;
         int player2Hits = 0;
 
@@ -49,8 +49,12 @@ namespace Battleships
                 }
                 
             }
-            /* Create the AI Players Grid */
-            player2.generateGrid();
+            if(difficulty == Difficulty.TWOPLAYER)
+            {
+                player2.generatePlayer1Grid();
+            }
+            /* Create the Second Players Grid */
+            player2.generatePlayer2Grid();
         }
 
         public bool saveToFile(String filename)
@@ -81,7 +85,6 @@ namespace Battleships
         public static GameState loadFromFile(String filename)
         {
             /* https://www.c-sharpcorner.com/article/serializing-objects-in-C-Sharp/ */
-            bool retVal = false;
             FileStream f = null;
             GameState newGamestate = null;
             try
@@ -90,9 +93,8 @@ namespace Battleships
                 BinaryFormatter b = new BinaryFormatter();
                 newGamestate = (GameState)b.Deserialize(f);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return null;
             }
             finally
             {
@@ -115,7 +117,7 @@ namespace Battleships
             return player2Square[x][y];
         }
 
-        public bool placePieceOnPlayer2Grid(Ship ship, int x, int y, int dx, int dy)
+        public bool placePieceOnPlayerTwoGrid(Ship ship, int x, int y, int dx, int dy)
         {
             return placePieceOnGrid(player2Square, ship, x, y, dx, dy);
         }
@@ -148,6 +150,11 @@ namespace Battleships
                 square[x + (i * dx)][y + (i * dy)].setShip(new Ship(ship, i, new int[2] {dx, dy}));
             }
             return true;
+        }
+
+        public bool sankPlayer1Battleship(int x, int y)
+        {
+            return sankBattleship(player1Square, x, y);
         }
 
         public bool sankPlayer2Battleship(int x, int y)

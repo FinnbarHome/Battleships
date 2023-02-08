@@ -16,7 +16,7 @@ namespace Battleships
         GameState gameState = null;
         private Button[][] enemyGridLayout = null;
         private Button[][] playerGridLayout = null;
-
+        private int turn = 1;
 
         public MainGrid(GameState gameState)
         {
@@ -116,12 +116,29 @@ namespace Battleships
                     else
                     {
                         playerShipBtn = createButtonAttributes();
-                        /* Disable the button */
-                        playerShipBtn.Enabled = false;
+                        playerShipBtn.BackgroundImage = Ships.NONE.getImage();
+
+                        playerShipBtn.Tag = new int[2] { x, y };
+
+                        /* Add our Click handler */
+                        playerShipBtn.Click += playerShipBtn_Click;
+
+                        /* Add our hover handlers */
+
+                        playerShipBtn.MouseEnter += playerShipBtn_MouseEnter;
+                        playerShipBtn.MouseLeave += playerShipBtn_MouseLeave;
                     }
 
                     /* Set the background of our image based on the ship that it has */
-                    playerShipBtn.BackgroundImage = gameState.getPlayer1Square(x, y).getShip().getImage();
+
+                    if (gameState.difficulty != Difficulty.TWOPLAYER)
+                    {
+                        /* Disable the button */
+                        playerShipBtn.Enabled = false;
+
+                        playerShipBtn.BackgroundImage = gameState.getPlayer1Square(x, y).getShip().getImage();
+                    }
+
 
 
                     /* Check if the square was hit */
@@ -131,6 +148,13 @@ namespace Battleships
                         playerShipBtn.Text = "X";
                         playerShipBtn.ForeColor = Color.Red;
                         playerShipBtn.Font = new Font(playerShipBtn.Font.FontFamily, 10);
+
+                        /* Check if the hit square has a ship */
+                        if (gameState.getPlayer1Square(x, y).getShip() != Ships.NONE && gameState.difficulty == Difficulty.TWOPLAYER)
+                        {
+                            /* Don't show the exact ship, this will give the game away. */
+                            playerShipBtn.BackgroundImage = Properties.Resources.ShipSquare;
+                        }
 
                     }
 
@@ -158,6 +182,10 @@ namespace Battleships
 
         private void EnemyGridBtn_MouseEnter(object sender, EventArgs e)
         {
+            if(turn != 1)
+            {
+                return;
+            }
             Button button = (Button)sender;
             int[] coordinates = (int[])button.Tag;
             if (gameState.getPlayer2Square(coordinates[0], coordinates[1]).isHit())
@@ -167,8 +195,84 @@ namespace Battleships
             button.BackgroundImage = Properties.Resources.SquareHover;
         }
 
+        private void playerShipBtn_MouseLeave(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            int[] coordinates = (int[])button.Tag;
+            if (gameState.getPlayer1Square(coordinates[0], coordinates[1]).isHit())
+            {
+                return;
+            }
+            button.BackgroundImage = Properties.Resources.EmptySquare;
+        }
+
+        private void playerShipBtn_MouseEnter(object sender, EventArgs e)
+        {
+            if (turn != 2)
+            {
+                return;
+            }
+            Button button = (Button)sender;
+            int[] coordinates = (int[])button.Tag;
+            if (gameState.getPlayer1Square(coordinates[0], coordinates[1]).isHit())
+            {
+                return;
+            }
+            button.BackgroundImage = Properties.Resources.SquareHover;
+        }
+
+        private void playerShipBtn_Click(object sender, EventArgs e)
+        {
+            if(turn != 2)
+            {
+                return;
+            }
+            /* Get the button we've clicked and its co ordinates */
+            Button sentButton = (Button)sender;
+            int[] coordinates = (int[])sentButton.Tag;
+
+            /* Check if the square selected was hit */
+            if (gameState.hitPlayer1Square(coordinates[0], coordinates[1]))
+            {
+                /* Fix our image */
+                sentButton.BackgroundImage = Ships.NONE.getImage();
+                /* Update the grid */
+                updateGrid();
+
+                /* Check if we've sank a battleship */
+                if (gameState.sankPlayer1Battleship(coordinates[0], coordinates[1]))
+                {
+
+                    /* Check if we've won, and announce it if so. */
+                    if (gameState.checkWin() < 0)
+                    {
+                        MessageBox.Show("Player 2 wins!", "Player 2 wins!");
+
+                        /* Send the user to the score screen */
+                        Score scoreView = new Score();
+                        this.ParentForm.Controls.Add(scoreView);
+                        this.ParentForm.Controls.Remove(this);
+                        this.Dispose();
+                    }
+                    else
+                    {
+                        /* If we have hit a ship but not won send a message to the user */
+                        MessageBox.Show("You sank player 1's battleship", "You sank player 1's battleship!!");
+                    }
+
+                }
+                turn = 1;
+            }
+
+        }
+
         private void enemyBtn_Click(object sender, EventArgs e)
         {
+            if (turn != 1)
+            {
+                return;
+            }
+
             /* Get the button we've clicked and its co ordinates */
             Button sentButton = (Button)sender;
             int[] coordinates = (int[])sentButton.Tag;
@@ -188,7 +292,14 @@ namespace Battleships
                     /* Check if we've won, and announce it if so. */
                     if (gameState.checkWin() > 0)
                     {
-                        MessageBox.Show("You win!", "You win!");
+                        if (gameState.difficulty != Difficulty.TWOPLAYER)
+                        {
+                            MessageBox.Show("You win!", "You win!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Player 1 wins!", "Player 1 wins!");
+                        }
 
                         /* Send the user to the score screen */
                         Score scoreView = new Score();
@@ -199,26 +310,38 @@ namespace Battleships
                     else
                     {
                         /* If we have hit a ship but not won send a message to the user */
-                        MessageBox.Show("You sank my battleship", "You sank my battleship!!");
+                        if (gameState.difficulty != Difficulty.TWOPLAYER)
+                        {
+                            MessageBox.Show("You sank my battleship", "You sank my battleship!!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("You sank player 2's battleship", "You sank player 2's battleship!!");
+                        }
                     }
 
                 }
-
-                /* Allow the AI to hit a square and update the grid */
-                gameState.player2.hitSquare();
-                updateGrid();
-
-                /* Check if the AI has won the game */
-                if (gameState.checkWin() < 0)
+                turn = 2;
+                if (gameState.difficulty != Difficulty.TWOPLAYER)
                 {
-                    MessageBox.Show("You lose!", "You lose!");
+                    /* Allow the AI to hit a square and update the grid */
+                    gameState.player2.hitSquare();
+                    updateGrid();
 
-                    /* Send the user to the score screen */
-                    Score scoreView = new Score();
-                    this.ParentForm.Controls.Add(scoreView);
-                    this.ParentForm.Controls.Remove(this);
-                    this.Dispose();
+                    /* Check if the AI has won the game */
+                    if (gameState.checkWin() < 0)
+                    {
+                        MessageBox.Show("You lose!", "You lose!");
+
+                        /* Send the user to the score screen */
+                        Score scoreView = new Score();
+                        this.ParentForm.Controls.Add(scoreView);
+                        this.ParentForm.Controls.Remove(this);
+                        this.Dispose();
+                    }
+                    turn = 1;
                 }
+                
 
             }
 
