@@ -3,6 +3,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Battleships
 {
+    [Serializable]
     public class AIPlayer
     {
         private Difficulty difficulty;
