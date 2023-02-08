@@ -28,7 +28,27 @@ namespace Battleships
 
         private void btnLoadGame_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog loadFile = new OpenFileDialog();
+            loadFile.Title = "Save BattleShips";
+            loadFile.AddExtension = true;
+            loadFile.DefaultExt = ".battleshipSave";
+            loadFile.Filter = "Battleships Save file|*.battleshipSave";
+            loadFile.ShowDialog();
+            GameState gameState = null;
+            if(loadFile.FileName != null)
+            {
+                gameState = GameState.loadFromFile(loadFile.FileName);
+            }
+            if(gameState == null)
+            {
+                MessageBox.Show("Failed to load file");
+                return;
+            }
+            /* When you continue, pass gameState to the main grid and switch the view */
+            MainGrid mainGridView = new MainGrid(gameState);
+            this.ParentForm.Controls.Add(mainGridView);
+            this.ParentForm.Controls.Remove(this);
+            this.Dispose();
         }
 
         private void btnRules_Click(object sender, EventArgs e)

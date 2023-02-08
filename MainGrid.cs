@@ -224,5 +224,22 @@ namespace Battleships
 
         }
 
+        private void btnSaveGame_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Title = "Save BattleShips";
+            saveFile.AddExtension = true;
+            saveFile.DefaultExt = ".battleshipSave";
+            saveFile.Filter = "Battleships Save file|*.battleshipSave";
+            saveFile.ShowDialog();
+            if(saveFile.FileName != null)
+            {
+                bool ret = gameState.saveToFile(saveFile.FileName);
+                if(!ret)
+                {
+                    MessageBox.Show("Failed to save file");
+                }
+            }
+        }
     }
 }

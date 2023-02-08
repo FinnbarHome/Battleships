@@ -32,6 +32,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Boat.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -147,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SquareHover.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Boat.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Boat.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

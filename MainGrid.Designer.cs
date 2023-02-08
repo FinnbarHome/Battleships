@@ -34,6 +34,7 @@ namespace Battleships
             this.playerShips = new System.Windows.Forms.TableLayoutPanel();
             this.lblYourShips = new System.Windows.Forms.Label();
             this.lblEnemyShips = new System.Windows.Forms.Label();
+            this.btnSaveGame = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // enemyGrid
@@ -113,10 +114,21 @@ namespace Battleships
             this.lblEnemyShips.TabIndex = 6;
             this.lblEnemyShips.Text = "ENEMY SHIPS";
             // 
+            // btnSaveGame
+            // 
+            this.btnSaveGame.Location = new System.Drawing.Point(375, 25);
+            this.btnSaveGame.Name = "btnSaveGame";
+            this.btnSaveGame.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveGame.TabIndex = 7;
+            this.btnSaveGame.Text = "Save Game";
+            this.btnSaveGame.UseVisualStyleBackColor = true;
+            this.btnSaveGame.Click += new System.EventHandler(this.btnSaveGame_Click);
+            // 
             // MainGrid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSaveGame);
             this.Controls.Add(this.lblEnemyShips);
             this.Controls.Add(this.lblYourShips);
             this.Controls.Add(this.playerShips);
@@ -136,5 +148,6 @@ namespace Battleships
         #endregion
 
         private System.Windows.Forms.Label lblEnemyShips;
+        private Button btnSaveGame;
     }
 }

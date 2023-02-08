@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Battleships
 {
+    [Serializable]
     public enum Difficulty
     {
         EASY,
@@ -13,6 +18,7 @@ namespace Battleships
         HARD
     };
 
+    [Serializable]
     public class GameState
     {
         public Difficulty difficulty;
@@ -46,13 +52,60 @@ namespace Battleships
             /* Create the AI Players Grid */
             player2.generateGrid();
         }
-        /* TODO - for save/load */
-        public GameState(String gameFile)
+
+        public bool saveToFile(String filename)
         {
+            /* https://www.c-sharpcorner.com/article/serializing-objects-in-C-Sharp/ */
+            bool retVal = false;
+            FileStream f = null;
+            try
+            {
+                f = File.Open(filename, FileMode.Create);
+                BinaryFormatter b = new BinaryFormatter();
+                b.Serialize(f, this);
+                retVal = true;
+            }
+            catch(Exception)
+            {
+            }
+            finally
+            {
+                if(f != null)
+                {
+                    f.Close();
+                }
+            }
+            return retVal;
         }
 
+        public static GameState loadFromFile(String filename)
+        {
+            /* https://www.c-sharpcorner.com/article/serializing-objects-in-C-Sharp/ */
+            bool retVal = false;
+            FileStream f = null;
+            GameState newGamestate = null;
+            try
+            {
+                f = File.Open(filename, FileMode.Open);
+                BinaryFormatter b = new BinaryFormatter();
+                newGamestate = (GameState)b.Deserialize(f);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            finally
+            {
+                if (f != null)
+                {
+                    f.Close();
+                }
+            }
+            return newGamestate;
+        } 
+
         /* Get a specific Square from the Player 1 Grid */
-        public GridSquare getPlayer1Square(int x, int y)
+            public GridSquare getPlayer1Square(int x, int y)
         {
             return player1Square[x][y];
         }
