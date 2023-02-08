@@ -188,5 +188,54 @@ namespace Battleships
             /* If the game is unfinished return 0 */
             return 0;
         }
+
+        //Prints board, for debugging purposes
+        public void printBoard(GridSquare[][] board)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    //Stores the particular square on the board we want to target
+                    GridSquare gridValue = board[j][i];
+
+                    //Stores the ship value at this square
+                    Ship ship = gridValue.getShip();
+
+                    //If is has a hit ship
+                    if (gridValue.isHit() == true && ship != Ships.NONE)
+                    {
+                        Console.Write("F");
+                    }
+
+                    //If tile is empty
+                    else if (gridValue.isHit() == false && ship == Ships.NONE)
+                    {
+                        Console.Write("0");
+                    }
+
+                    //If tile has an empty ship on it bu has not been hit
+                    else if (gridValue.isHit() == false && ship != Ships.NONE)
+                    {
+                        Console.Write("S");
+                    }
+
+                    //If tile is empty but has been shot at
+                    else if (gridValue.isHit() == true && ship == Ships.NONE)
+                    {
+                        Console.Write("X");
+                    }
+
+                    else
+                    {
+                        Console.Write("ERROR");
+                    }
+
+                    Console.Write(" ");
+
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }
