@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Battleships
@@ -49,7 +50,22 @@ namespace Battleships
             }
         }
 
+        public List<Tuple<int, int>> generateCheckerboardCoordinates()
+        {
+            List<Tuple<int, int>> checkerboardCoordinates = new List<Tuple<int, int>>();
 
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if ((i + j) % 2 == 0)
+                    {
+                        checkerboardCoordinates.Add(new Tuple<int, int>(i, j));
+                    }
+                }
+            }
+            return checkerboardCoordinates;
+        }
 
         //This is the Easy AI, it hits squares completely randomly
         public void randHittingAI()
@@ -82,34 +98,38 @@ namespace Battleships
                 //Bool to define whether the AI is searching for a ship
                 bool searching = true;
 
-                //Defines how many loops the checkboard firing has gone through
-                int tries = 0;
-
-                //Defines how long the checkboard firing shot will loop until it can't find a valid shot
-                int triesLoop = 200;
-
                 //Generates initial random shot
                 int x = rnd.Next(0, gameState.player1Square.Length);
                 int y = rnd.Next(0, gameState.player1Square.Length);
 
-                //Is shooting in the checkered pattern until it finds 
+                List<Tuple<int, int>> checkerboard = generateCheckerboardCoordinates();
+
+                //Is shooting in the checkered pattern until it finds a ship
                 if (searching)
                 {
-                    //Repeats until it fits the checkered pattern or has tried to find a valid shot great than the tries value
-                    do
+                    int length = checkerboard.Count;
+                    if(length > 0)
                     {
-                        x = rnd.Next(0, gameState.player1Square.Length);
-                        y = rnd.Next(0, gameState.player1Square.Length);
-                        tries++;
+                        //Generates a random index to pick from the checkboard list
+                        Random rand = new Random();
+                        int randomIndex = rand.Next(0, checkerboard.Count);
 
-                    } while ((x + y) % 2 != 0 || tries > triesLoop);
+                        //Puts this coordinate into randomCoordinate field then removes it from the checkboard
+                        Tuple<int, int> randomCoordinate = checkerboard[randomIndex];
+                        checkerboard.RemoveAt(randomIndex);
 
-                    //If its tried to fit the checkboard pattern more times than the  triesLoop value and failed, then just gen a random shot
-                    if (tries > triesLoop)
-                    {
-                        x = rnd.Next(0, gameState.player1Square.Length);
-                        y = rnd.Next(0, gameState.player1Square.Length);
+                        //Get the x and y co-ordinates into separate fields
+                        x = randomCoordinate.Item1;
+                        y = randomCoordinate.Item2;
+
+                        //Try hitting this co-ord
+                        finished = gameState.hitPlayer1Square(x, y);
                     }
+                    else
+                    {
+                        randHittingAI();
+                    }
+                    
                 }
                 else
                 {
