@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblReturnToMainMenu = new System.Windows.Forms.Button();
+            this.btnReturnToMainMenu = new System.Windows.Forms.Button();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.btnHard = new System.Windows.Forms.Button();
             this.btnMedium = new System.Windows.Forms.Button();
             this.btnEasy = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lblReturnToMainMenu
+            // btnReturnToMainMenu
             // 
-            this.lblReturnToMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblReturnToMainMenu.Location = new System.Drawing.Point(106, 461);
-            this.lblReturnToMainMenu.Name = "lblReturnToMainMenu";
-            this.lblReturnToMainMenu.Size = new System.Drawing.Size(297, 60);
-            this.lblReturnToMainMenu.TabIndex = 1;
-            this.lblReturnToMainMenu.Text = "Return To Main Menu";
-            this.lblReturnToMainMenu.UseVisualStyleBackColor = true;
-            this.lblReturnToMainMenu.Click += new System.EventHandler(this.lblReturnToMainMenu_Click);
+            this.btnReturnToMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnReturnToMainMenu.Location = new System.Drawing.Point(106, 461);
+            this.btnReturnToMainMenu.Name = "lblReturnToMainMenu";
+            this.btnReturnToMainMenu.Size = new System.Drawing.Size(297, 60);
+            this.btnReturnToMainMenu.TabIndex = 1;
+            this.btnReturnToMainMenu.Text = "Return To Main Menu";
+            this.btnReturnToMainMenu.UseVisualStyleBackColor = true;
+            this.btnReturnToMainMenu.Click += new System.EventHandler(this.btnReturnToMainMenu_Click);
             // 
             // lblWelcome
             // 
@@ -100,7 +100,7 @@
             this.Controls.Add(this.btnMedium);
             this.Controls.Add(this.btnHard);
             this.Controls.Add(this.lblWelcome);
-            this.Controls.Add(this.lblReturnToMainMenu);
+            this.Controls.Add(this.btnReturnToMainMenu);
             this.Name = "SelectDifficulty";
             this.Size = new System.Drawing.Size(500, 600);
             this.ResumeLayout(false);
@@ -110,7 +110,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button lblReturnToMainMenu;
+        private System.Windows.Forms.Button btnReturnToMainMenu;
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Button btnHard;
         private System.Windows.Forms.Button btnMedium;

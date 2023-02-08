@@ -19,16 +19,35 @@ namespace Battleships
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            /* If we're starting a new game we need to move to the difficulty view. */
-            SelectDifficulty difficultyView = new SelectDifficulty();
-            this.ParentForm.Controls.Add(difficultyView);
+            NumPlayerControl numPlayerView = new NumPlayerControl();
+            this.ParentForm.Controls.Add(numPlayerView);
             this.ParentForm.Controls.Remove(this);
             this.Dispose();
         }
 
         private void btnLoadGame_Click(object sender, EventArgs e)
         {
-
+            OpenFileDialog loadFile = new OpenFileDialog();
+            loadFile.Title = "Save BattleShips";
+            loadFile.AddExtension = true;
+            loadFile.DefaultExt = ".battleshipSave";
+            loadFile.Filter = "Battleships Save file|*.battleshipSave";
+            loadFile.ShowDialog();
+            GameState gameState = null;
+            if(loadFile.FileName != null)
+            {
+                gameState = GameState.loadFromFile(loadFile.FileName);
+            }
+            if(gameState == null)
+            {
+                MessageBox.Show("Failed to load file");
+                return;
+            }
+            /* When you continue, pass gameState to the main grid and switch the view */
+            MainGrid mainGridView = new MainGrid(gameState);
+            this.ParentForm.Controls.Add(mainGridView);
+            this.ParentForm.Controls.Remove(this);
+            this.Dispose();
         }
 
         private void btnRules_Click(object sender, EventArgs e)
@@ -42,7 +61,10 @@ namespace Battleships
 
         private void btnScore_Click(object sender, EventArgs e)
         {
-
+            Score scoreView = new Score();
+            this.ParentForm.Controls.Add(scoreView);
+            this.ParentForm.Controls.Remove(this);
+            this.Dispose();
         }
 
         private void btnExit_Click(object sender, EventArgs e)

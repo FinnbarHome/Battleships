@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Battleships
 {
+    [Serializable]
     public class Ship
     {
         int numShips = 0;

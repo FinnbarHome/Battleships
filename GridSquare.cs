@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleships
 {
+    [Serializable]
     public class GridSquare
     {
         Ship ship = Ships.NONE;

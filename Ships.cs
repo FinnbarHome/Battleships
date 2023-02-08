@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Battleships
 {
+    [Serializable]
     internal class Ships
     {
         public static Ship NONE = new Ship(0, 1, new Image[1] { Properties.Resources.EmptySquare }, Properties.Resources.EmptySquare, "No ship");
