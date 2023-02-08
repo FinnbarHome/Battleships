@@ -42,7 +42,10 @@ namespace Battleships
 
         private void btnScore_Click(object sender, EventArgs e)
         {
-
+            Score scoreView = new Score();
+            this.ParentForm.Controls.Add(scoreView);
+            this.ParentForm.Controls.Remove(this);
+            this.Dispose();
         }
 
         private void btnExit_Click(object sender, EventArgs e)

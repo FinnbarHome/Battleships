@@ -176,19 +176,30 @@ namespace Battleships
             /* Check if the square selected was hit */
             if (gameState.hitPlayer2Square(coordinates[0], coordinates[1]))
             {
+                /* Fix our image */
+                sentButton.BackgroundImage = Ships.NONE.getImage();
                 /* Update the grid */
                 updateGrid();
 
                 /* Check if we've sank a battleship */
                 if (gameState.sankPlayer2Battleship(coordinates[0], coordinates[1]))
                 {
-                    /* If we have send a message to the user */
-                    MessageBox.Show("You sank my battleship", "You sank my battleship!!");
 
                     /* Check if we've won, and announce it if so. */
                     if (gameState.checkWin() > 0)
                     {
                         MessageBox.Show("You win!", "You win!");
+
+                        /* Send the user to the score screen */
+                        Score scoreView = new Score();
+                        this.ParentForm.Controls.Add(scoreView);
+                        this.ParentForm.Controls.Remove(this);
+                        this.Dispose();
+                    }
+                    else
+                    {
+                        /* If we have hit a ship but not won send a message to the user */
+                        MessageBox.Show("You sank my battleship", "You sank my battleship!!");
                     }
 
                 }
@@ -201,6 +212,12 @@ namespace Battleships
                 if (gameState.checkWin() < 0)
                 {
                     MessageBox.Show("You lose!", "You lose!");
+
+                    /* Send the user to the score screen */
+                    Score scoreView = new Score();
+                    this.ParentForm.Controls.Add(scoreView);
+                    this.ParentForm.Controls.Remove(this);
+                    this.Dispose();
                 }
 
             }
