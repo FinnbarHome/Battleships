@@ -111,7 +111,7 @@ namespace Battleships
         //This is the Medium AI, it shoots in a checkered pattern and hunts 
         public void checkeredHuntAI()
         {
-            GridSquare[][] board = gameState.player2Square;
+            GridSquare[][] board = gameState.player1Square;
             GridSquare gridValue;
             Ship ship;
             int tryingDirX = 0;
@@ -162,7 +162,6 @@ namespace Battleships
                         }
 
                         //Try hitting this co-ord
-                        finished = gameState.hitPlayer1Square(x, y);
                     }
                     else
                     {
@@ -204,13 +203,10 @@ namespace Battleships
                                 //Has found another ship
                                 successX = tryingDirX;
                                 successY = tryingDirY;
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             else
                             {
                                 dirTries++;
-                                //Has not found another ship
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             break;
 
@@ -239,13 +235,10 @@ namespace Battleships
                                 //Has found another ship
                                 successX = tryingDirX;
                                 successY = tryingDirY;
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             else
                             {
                                 dirTries++;
-                                //Has not found another ship
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             break;
                         case 3:
@@ -273,13 +266,11 @@ namespace Battleships
                                 //Has found another ship
                                 successX = tryingDirX;
                                 successY = tryingDirY;
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             else
                             {
                                 dirTries++;
                                 //Has not found another ship
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             break;
                         case 4:
@@ -308,13 +299,11 @@ namespace Battleships
                                 //Has found another ship
                                 successX = tryingDirX;
                                 successY = tryingDirY;
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             else
                             {
                                 dirTries++;
                                 //Has not found another ship
-                                finished = gameState.hitPlayer1Square(x, y);
                             }
                             break;
                         default:
@@ -324,8 +313,6 @@ namespace Battleships
                             break;
                     }
                 }
-
-                //If it returns a valid hit it will register it, if not it will keep looping
                 finished = gameState.hitPlayer1Square(x, y);
             }
 
