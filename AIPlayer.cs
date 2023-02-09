@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Battleships
@@ -9,8 +10,12 @@ namespace Battleships
     {
         private Difficulty difficulty;
         private GameState gameState;
-
+        private bool foundShipLastTurn = false;
+        private bool foundShip = false;
         private Random rnd = new Random();
+        private int successX;
+        private int successY;
+        private int dirTries = 1;
 
 
         public AIPlayer(GameState gameState, Difficulty difficulty)
@@ -71,42 +76,67 @@ namespace Battleships
         //This is the Easy AI, it hits squares completely randomly
         public void randHittingAI()
         {
-            GridSquare[][] board = gameState.player2Square;
-
+            
             bool finished = false;
             while (!finished)
             {
                 int x = rnd.Next(0, gameState.player1Square.Length);
                 int y = rnd.Next(0, gameState.player1Square.Length);
-                GridSquare gridValue = board[x][y];
-                Ship ship = gridValue.getShip();
-
-
-                if (ship != Ships.NONE)
-                {
-                    Console.WriteLine("THERE IS A SHIP HERE");
-                }
                 finished = gameState.hitPlayer1Square(x, y);
             }
+        }
+
+        //Rand but for medium so it sets sucess shots
+        public void randHittingAIMed(GridSquare[][] board)
+        {
+            bool finished = false;
+            while (!finished)
+            {
+                int x = rnd.Next(0, gameState.player1Square.Length);
+                int y = rnd.Next(0, gameState.player1Square.Length);
+
+                checkShipAtTile(board[x][y]);
+                if (checkShipAtTile(board[x][y]))
+                {
+                    successX = x;
+                    successY = y;
+                }
+
+                finished = gameState.hitPlayer1Square(x, y);
+            }
+
+            
         }
 
         //This is the Medium AI, it shoots in a checkered pattern and hunts 
         public void checkeredHuntAI()
         {
+            GridSquare[][] board = gameState.player2Square;
+            GridSquare gridValue;
+            Ship ship;
+            int tryingDirX = 0;
+            int tryingDirY = 0;
+
+
+            if (foundShip)
+            {
+                foundShipLastTurn = true;
+            }
+
             bool finished = false;
             while (!finished)
             {
-                //Bool to define whether the AI is searching for a ship
-                bool searching = true;
-
+                
                 //Generates initial random shot
                 int x = rnd.Next(0, gameState.player1Square.Length);
                 int y = rnd.Next(0, gameState.player1Square.Length);
 
                 List<Tuple<int, int>> checkerboard = generateCheckerboardCoordinates();
+                
+
 
                 //Is shooting in the checkered pattern until it finds a ship
-                if (searching)
+                if (!foundShipLastTurn)
                 {
                     int length = checkerboard.Count;
                     if(length > 0)
@@ -123,18 +153,176 @@ namespace Battleships
                         x = randomCoordinate.Item1;
                         y = randomCoordinate.Item2;
 
+                        //Sets bool if a ship is going to be hit at this tile
+                        checkShipAtTile(board[x][y]);
+                        if (checkShipAtTile(board[x][y]))
+                        {
+                            successX = x;
+                            successY = y;
+                        }
+
                         //Try hitting this co-ord
                         finished = gameState.hitPlayer1Square(x, y);
                     }
                     else
                     {
-                        randHittingAI();
+                        finished = false;
+                        while (!finished)
+                        {
+                            randHittingAIMed(board);
+                        }
                     }
                     
                 }
                 else
                 {
-                    //Has found a ship, now will search for the rest of the ship
+
+                    switch (dirTries)
+                    {
+                        case 1:
+                            //Is trying the square left of it
+                            tryingDirX = successX - 1;
+                            tryingDirY = successY;
+
+                            //If the x is beyond the grid
+                            if (tryingDirX < 0)
+                            {
+                                goto case 2;
+                            }
+                            gridValue = board[tryingDirX][tryingDirY];
+                            if (gridValue.isHit())
+                            {
+                                goto case 2;
+                            }
+
+                            x = tryingDirX;
+                            y = tryingDirY;
+                            ship = gridValue.getShip();
+
+                            if (ship != Ships.NONE)
+                            {
+                                //Has found another ship
+                                successX = tryingDirX;
+                                successY = tryingDirY;
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            else
+                            {
+                                dirTries++;
+                                //Has not found another ship
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            break;
+
+                        case 2:
+                            //Is trying the square right of it
+                            tryingDirX = successX + 1;
+                            tryingDirY = successY;
+
+                            //If the x is beyond the grid
+                            if (tryingDirX > 10)
+                            {
+                                goto case 3;
+                            }
+                            gridValue = board[tryingDirX][tryingDirY];
+                            if (gridValue.isHit())
+                            {
+                                goto case 3;
+                            }
+
+                            x = tryingDirX;
+                            y = tryingDirY;
+                            ship = gridValue.getShip();
+
+                            if (ship != Ships.NONE)
+                            {
+                                //Has found another ship
+                                successX = tryingDirX;
+                                successY = tryingDirY;
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            else
+                            {
+                                dirTries++;
+                                //Has not found another ship
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            break;
+                        case 3:
+                            //Is trying the square on the bottom of it
+                            tryingDirX = successX;
+                            tryingDirY = successY - 1;
+
+                            //If the y is beyond the grid
+                            if (tryingDirY < 0)
+                            {
+                                goto case 4;
+                            }
+                            gridValue = board[tryingDirX][tryingDirY];
+                            if (gridValue.isHit())
+                            {
+                                goto case 4;
+                            }
+
+                            x = tryingDirX;
+                            y = tryingDirY;
+                            ship = gridValue.getShip();
+
+                            if (ship != Ships.NONE)
+                            {
+                                //Has found another ship
+                                successX = tryingDirX;
+                                successY = tryingDirY;
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            else
+                            {
+                                dirTries++;
+                                //Has not found another ship
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            break;
+                        case 4:
+                            //Is trying the square on top of it
+                            tryingDirX = successX;
+                            tryingDirY = successY + 1;
+                            
+
+                            //If the y is beyond the grid
+                            if (tryingDirY > 10)
+                            {
+                                goto case 4;
+                            }
+                            gridValue = board[tryingDirX][tryingDirY];
+                            if (gridValue.isHit())
+                            {
+                                goto case 4;
+                            }
+
+                            x = tryingDirX;
+                            y = tryingDirY;
+                            ship = gridValue.getShip();
+
+                            if (ship != Ships.NONE)
+                            {
+                                //Has found another ship
+                                successX = tryingDirX;
+                                successY = tryingDirY;
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            else
+                            {
+                                dirTries++;
+                                //Has not found another ship
+                                finished = gameState.hitPlayer1Square(x, y);
+                            }
+                            break;
+                        default:
+                            foundShip = false;
+                            dirTries = 1;
+                            randHittingAIMed(board);
+                            break;
+                    }
                 }
 
                 //If it returns a valid hit it will register it, if not it will keep looping
@@ -142,6 +330,22 @@ namespace Battleships
             }
 
 
+        }
+
+        public bool checkShipAtTile(GridSquare gridValue)
+        {
+            Ship ship = gridValue.getShip();
+
+            if (ship != Ships.NONE && !gridValue.isHit())
+            {
+                foundShip = true;
+                return foundShip;
+            }
+            else
+            {
+                foundShip = false;
+                return foundShip;
+            }
         }
 
         public void generatePlayer2Grid()
