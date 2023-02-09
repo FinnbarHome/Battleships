@@ -16,7 +16,6 @@ namespace Battleships
         GameState gameState = null;
         private Button[][] enemyGridLayout = null;
         private Button[][] playerGridLayout = null;
-        private int turn = 1;
 
         public MainGrid(GameState gameState)
         {
@@ -120,24 +119,27 @@ namespace Battleships
 
                         playerShipBtn.Tag = new int[2] { x, y };
 
-                        /* Add our Click handler */
-                        playerShipBtn.Click += playerShipBtn_Click;
+                        if(gameState.difficulty == Difficulty.TWOPLAYER)
+                        {
+                            /* Add our Click handler */
+                            playerShipBtn.Click += playerShipBtn_Click;
 
-                        /* Add our hover handlers */
+                            /* Add our hover handlers */
 
-                        playerShipBtn.MouseEnter += playerShipBtn_MouseEnter;
-                        playerShipBtn.MouseLeave += playerShipBtn_MouseLeave;
+                            playerShipBtn.MouseEnter += playerShipBtn_MouseEnter;
+                            playerShipBtn.MouseLeave += playerShipBtn_MouseLeave;
+
+                        }
                     }
 
                     /* Set the background of our image based on the ship that it has */
 
                     if (gameState.difficulty != Difficulty.TWOPLAYER)
                     {
-                        /* Disable the button */
-                        playerShipBtn.Enabled = false;
 
                         playerShipBtn.BackgroundImage = gameState.getPlayer1Square(x, y).getShip().getImage();
                     }
+
 
 
 
@@ -182,7 +184,7 @@ namespace Battleships
 
         private void EnemyGridBtn_MouseEnter(object sender, EventArgs e)
         {
-            if(turn != 1)
+            if(gameState.turn != 1)
             {
                 return;
             }
@@ -208,7 +210,7 @@ namespace Battleships
 
         private void playerShipBtn_MouseEnter(object sender, EventArgs e)
         {
-            if (turn != 2)
+            if (gameState.turn != 2)
             {
                 return;
             }
@@ -223,10 +225,6 @@ namespace Battleships
 
         private void playerShipBtn_Click(object sender, EventArgs e)
         {
-            if(turn != 2)
-            {
-                return;
-            }
             /* Get the button we've clicked and its co ordinates */
             Button sentButton = (Button)sender;
             int[] coordinates = (int[])sentButton.Tag;
@@ -261,17 +259,12 @@ namespace Battleships
                     }
 
                 }
-                turn = 1;
             }
 
         }
 
         private void enemyBtn_Click(object sender, EventArgs e)
         {
-            if (turn != 1)
-            {
-                return;
-            }
 
             /* Get the button we've clicked and its co ordinates */
             Button sentButton = (Button)sender;
@@ -321,7 +314,6 @@ namespace Battleships
                     }
 
                 }
-                turn = 2;
                 if (gameState.difficulty != Difficulty.TWOPLAYER)
                 {
                     /* Allow the AI to hit a square and update the grid */
@@ -339,7 +331,6 @@ namespace Battleships
                         this.ParentForm.Controls.Remove(this);
                         this.Dispose();
                     }
-                    turn = 1;
                 }
                 
 

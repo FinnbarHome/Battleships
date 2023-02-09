@@ -26,6 +26,7 @@ namespace Battleships
         public AIPlayer player2;
         public GridSquare[][] player1Square = new GridSquare[10][];
         public GridSquare[][] player2Square = new GridSquare[10][];
+        public int turn = 1;
         int player1Hits = 0;
         int player2Hits = 0;
 
@@ -190,8 +191,18 @@ namespace Battleships
 
         public bool hitPlayer1Square(int x, int y)
         {
+            if(turn != 2)
+            {
+                return false;
+            }
             Tuple<bool, int> hitRet = hitSquare(player1Square, x, y);
             player1Hits += hitRet.Item2;
+
+            if (hitRet.Item1)
+            {
+                turn = 1;
+            }
+
             /* Return whether or not the hit was successful */
             return hitRet.Item1;
         }
@@ -199,8 +210,18 @@ namespace Battleships
 
         public bool hitPlayer2Square(int x, int y)
         {
+            if (turn != 1)
+            {
+                return false;
+            }
             Tuple<bool, int> hitRet = hitSquare(player2Square, x, y);
             player2Hits += hitRet.Item2;
+
+            if (hitRet.Item1)
+            {
+                turn = 2;
+            }
+
             /* Return whether or not the hit was successful */
             return hitRet.Item1;
         }
