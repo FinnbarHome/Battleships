@@ -216,7 +216,7 @@ namespace Battleships
                             tryingDirY = successY;
 
                             //If the x is beyond the grid
-                            if (tryingDirX > 10)
+                            if (tryingDirX >= 10)
                             {
                                 goto case 3;
                             }
@@ -280,7 +280,7 @@ namespace Battleships
                             
 
                             //If the y is beyond the grid
-                            if (tryingDirY > 10)
+                            if (tryingDirY >= 10)
                             {
                                 goto case 4;
                             }

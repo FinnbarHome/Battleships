@@ -29,6 +29,28 @@ namespace Battleships
                 playerGridLayout[i] = new Button[gameState.player1Square[i].Length];
             }
             InitializeComponent();
+
+            if (gameState.difficulty == Difficulty.TWOPLAYER)
+            {
+                return;
+            }
+            lblScore.Text = "Score: " + gameState.score.ToString();
+            timerScore.Tick += TimerScore_Tick;
+            timerScore.Start();
+        }
+
+        private void TimerScore_Tick(object sender, EventArgs e)
+        {
+            if(gameState.difficulty == Difficulty.TWOPLAYER)
+            {
+                return;
+            }
+            gameState.score -= 1;
+            if(gameState.score < 0)
+            {
+                gameState.score = 0;
+            }
+            lblScore.Text = "Score: " + gameState.score.ToString();
         }
 
         private void MainGrid_Load(object sender, EventArgs e)
@@ -246,9 +268,9 @@ namespace Battleships
                     {
                         MessageBox.Show("Player 2 wins!", "Player 2 wins!");
 
-                        /* Send the user to the score screen */
-                        Score scoreView = new Score();
-                        this.ParentForm.Controls.Add(scoreView);
+                        /* Send the user to the Home screen(no score in multiplayer) */
+                        MainMenu mainMenu = new MainMenu();
+                        this.ParentForm.Controls.Add(mainMenu);
                         this.ParentForm.Controls.Remove(this);
                         this.Dispose();
                     }
@@ -292,10 +314,15 @@ namespace Battleships
                         else
                         {
                             MessageBox.Show("Player 1 wins!", "Player 1 wins!");
+                            /* Send the user to the Home screen(no score in multiplayer) */
+                            MainMenu mainMenu = new MainMenu();
+                            this.ParentForm.Controls.Add(mainMenu);
+                            this.ParentForm.Controls.Remove(this);
+                            this.Dispose();
                         }
 
                         /* Send the user to the score screen */
-                        Score scoreView = new Score();
+                        Score scoreView = new Score(gameState);
                         this.ParentForm.Controls.Add(scoreView);
                         this.ParentForm.Controls.Remove(this);
                         this.Dispose();
@@ -326,7 +353,7 @@ namespace Battleships
                         MessageBox.Show("You lose!", "You lose!");
 
                         /* Send the user to the score screen */
-                        Score scoreView = new Score();
+                        Score scoreView = new Score(gameState);
                         this.ParentForm.Controls.Add(scoreView);
                         this.ParentForm.Controls.Remove(this);
                         this.Dispose();
