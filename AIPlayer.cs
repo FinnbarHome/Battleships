@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.PerformanceData;
 using System.Drawing.Printing;
 using System.Linq.Expressions;
+using System.Security.AccessControl;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
@@ -20,6 +21,8 @@ namespace Battleships
         private int successY;
         private int dirTries = 1;
         private List<Coordinate> checkerboard;
+        private List<Coordinate> shipLocations;
+        private int runOnce = 0;
 
 
         public AIPlayer(GameState gameState, Difficulty difficulty)
@@ -27,11 +30,12 @@ namespace Battleships
             this.difficulty = difficulty;
             this.gameState = gameState;
             checkerboard = GetCheckerboardCoordinates();
-
+            
         }
 
         public void hitSquare()
         {
+            
             //Converts difficulty var to a string
             string diff = difficulty.ToString();
 
@@ -49,6 +53,7 @@ namespace Battleships
             else if (diff == "HARD")
             {
 
+                slightlyOmnipotentAI();
             }
             else
             {
@@ -56,25 +61,25 @@ namespace Battleships
             }
         }
 
-        private List<Coordinate> GetCheckerboardCoordinates()
+        //Checks if a ship is at the tile we're looking at
+        public bool checkShipAtTile(GridSquare gridValue)
         {
-            List<Coordinate> coordinates = new List<Coordinate>();
+            Ship ship = gridValue.getShip();
 
-            for (int i = 0; i < 10; i++)
+            if (ship != Ships.NONE && !gridValue.isHit())
             {
-                for (int j = 0; j < 10; j++)
-                {
-                    if ((i + j) % 2 == 0)
-                    {
-                        Console.WriteLine(i.ToString() + j.ToString());
-                        coordinates.Add(new Coordinate(i,j));
-                    }
-                }
+                foundShip = true;
+                return foundShip;
             }
-            return coordinates;
+            else
+            {
+                foundShip = false;
+                return foundShip;
+            }
         }
+        
 
-
+        /* EASY AI METHOD */
         //This is the Easy AI, it hits squares completely randomly
         public void randHittingAI()
         {
@@ -88,13 +93,37 @@ namespace Battleships
             }
         }
 
+        /* MEDIUM AI METHODS */
+
+        //Creates a list of coordinates for the checkered shot to use
+        private List<Coordinate> GetCheckerboardCoordinates()
+        {
+            List<Coordinate> coordinates = new List<Coordinate>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if ((i + j) % 2 == 0)
+                    {
+                        Console.WriteLine(i.ToString() + j.ToString());
+                        coordinates.Add(new Coordinate(i, j));
+                    }
+                }
+            }
+            return coordinates;
+        }
+
         //Rand but for medium so it sets sucess shots
         public Coordinate randHittingAIMed(GridSquare[][] board)
         {
             Console.WriteLine("AI STATUS: No checkered shots left to fire, doing random shots");
+
+            //Sets x and y as random
             int x = rnd.Next(0, gameState.player1Square.Length);
             int y = rnd.Next(0, gameState.player1Square.Length);
 
+            //Checks if a the tile its shooting and has a ship
             if (checkShipAtTile(board[x][y]))
             {
                 successX = x;
@@ -116,6 +145,7 @@ namespace Battleships
 
             int length = checkerboard.Count;
 
+            //Only runs if there's coordinates left in the checkerboard
             if (length > 0)
             {
                 Console.WriteLine("AI STATUS: Doing checkered shot");
@@ -348,25 +378,85 @@ namespace Battleships
             }
         }
 
-        public bool checkShipAtTile(GridSquare gridValue)
-        {
-            Ship ship = gridValue.getShip();
+        /* HARD AI METHODS*/
 
-            if (ship != Ships.NONE && !gridValue.isHit())
+        public void slightlyOmnipotentAI()
+        {
+
+            //Ensures ship locations only gened once
+            if (runOnce == 0)
             {
-                foundShip = true;
-                return foundShip;
+                shipLocations = ShipLocations(gameState.player1Square);
+            }
+            runOnce++;
+
+            //Random number to create a chance of getting a guarantteed shot
+            Random rand = new Random();
+            int chance = rand.Next(1, 7);
+            bool finished = false;
+
+            if(chance == 1)
+            {
+                while (!finished)
+                {
+                    Coordinate coordinates = guaranteedShot();
+                    finished = gameState.hitPlayer1Square(coordinates.X, coordinates.Y);
+                }
             }
             else
             {
-                foundShip = false;
-                return foundShip;
+                checkeredHuntAI();
             }
+
         }
 
+        //Guarantees a shot where a ship is
+        private Coordinate guaranteedShot()
+        {
+            Console.WriteLine("AI STATUS: Doing a guaranteed shot");
+
+            int length = shipLocations.Count;
+            Random randoms = new Random();
+            int randomIndex = randoms.Next(0, length);
+
+            //Puts a random guaranteed shot coordinate into 
+            Coordinate selectedCoordinate = shipLocations[randomIndex];
+            shipLocations.RemoveAt(randomIndex);
+
+            return selectedCoordinate;
+        }
+
+        // Creates a list of where all the ships are
+        private List<Coordinate> ShipLocations(GridSquare[][] board)
+        {
+            List<Coordinate> coordinates = new List<Coordinate>();
+            GridSquare gridValue;
+            Ship ship;
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    gridValue= board[i][j];
+                    ship= gridValue.getShip();
+
+                    
+                    if (ship != Ships.NONE)
+                    {
+                        Coordinate coordinate = new Coordinate(i,j);
+                        coordinates.Add(coordinate);
+                    }
+
+                }
+            }
+
+            return coordinates;
+        }
+
+
+        /* Generating grids methods */
         public void generatePlayer2Grid()
         {
-            /* TODO add some actual AI to the ai... */
 
             /* Entirely Random */
             for (int i = 0; i < Ships.shipList.Length; i += 1)
@@ -386,7 +476,6 @@ namespace Battleships
         }
         public void generatePlayer1Grid()
         {
-            /* TODO add some actual AI to the ai... */
 
             /* Entirely Random */
             for (int i = 0; i < Ships.shipList.Length; i += 1)
