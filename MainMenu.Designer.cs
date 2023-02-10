@@ -44,46 +44,46 @@
             // lblExit
             // 
             this.lblExit.AutoSize = true;
-            this.lblExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblExit.Location = new System.Drawing.Point(329, 455);
+            this.lblExit.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
+            this.lblExit.Location = new System.Drawing.Point(318, 453);
             this.lblExit.Name = "lblExit";
-            this.lblExit.Size = new System.Drawing.Size(83, 20);
+            this.lblExit.Size = new System.Drawing.Size(100, 22);
             this.lblExit.TabIndex = 23;
             this.lblExit.Text = "Exit game";
             // 
             // lblHighScore
             // 
             this.lblHighScore.AutoSize = true;
-            this.lblHighScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblHighScore.Location = new System.Drawing.Point(329, 375);
+            this.lblHighScore.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
+            this.lblHighScore.Location = new System.Drawing.Point(318, 373);
             this.lblHighScore.Name = "lblHighScore";
-            this.lblHighScore.Size = new System.Drawing.Size(130, 20);
+            this.lblHighScore.Size = new System.Drawing.Size(160, 22);
             this.lblHighScore.TabIndex = 22;
             this.lblHighScore.Text = "See high scores";
             // 
             // lblRules
             // 
             this.lblRules.AutoSize = true;
-            this.lblRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblRules.Location = new System.Drawing.Point(329, 295);
+            this.lblRules.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
+            this.lblRules.Location = new System.Drawing.Point(318, 293);
             this.lblRules.Name = "lblRules";
-            this.lblRules.Size = new System.Drawing.Size(133, 20);
+            this.lblRules.Size = new System.Drawing.Size(160, 22);
             this.lblRules.TabIndex = 21;
             this.lblRules.Text = "View game rules";
             // 
             // lblLoadGame
             // 
             this.lblLoadGame.AutoSize = true;
-            this.lblLoadGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblLoadGame.Location = new System.Drawing.Point(329, 215);
+            this.lblLoadGame.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
+            this.lblLoadGame.Location = new System.Drawing.Point(318, 213);
             this.lblLoadGame.Name = "lblLoadGame";
-            this.lblLoadGame.Size = new System.Drawing.Size(133, 20);
+            this.lblLoadGame.Size = new System.Drawing.Size(170, 22);
             this.lblLoadGame.TabIndex = 20;
             this.lblLoadGame.Text = "Load a game file";
             // 
             // btnExit
             // 
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnExit.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnExit.Location = new System.Drawing.Point(32, 435);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(270, 60);
@@ -94,7 +94,7 @@
             // 
             // btnScore
             // 
-            this.btnScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnScore.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnScore.Location = new System.Drawing.Point(32, 355);
             this.btnScore.Name = "btnScore";
             this.btnScore.Size = new System.Drawing.Size(270, 60);
@@ -105,7 +105,7 @@
             // 
             // btnRules
             // 
-            this.btnRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnRules.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnRules.Location = new System.Drawing.Point(32, 275);
             this.btnRules.Name = "btnRules";
             this.btnRules.Size = new System.Drawing.Size(270, 60);
@@ -116,7 +116,7 @@
             // 
             // btnLoadGame
             // 
-            this.btnLoadGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnLoadGame.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnLoadGame.Location = new System.Drawing.Point(32, 195);
             this.btnLoadGame.Name = "btnLoadGame";
             this.btnLoadGame.Size = new System.Drawing.Size(270, 60);
@@ -128,16 +128,16 @@
             // lblStartNewGane
             // 
             this.lblStartNewGane.AutoSize = true;
-            this.lblStartNewGane.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblStartNewGane.Location = new System.Drawing.Point(329, 135);
+            this.lblStartNewGane.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
+            this.lblStartNewGane.Location = new System.Drawing.Point(318, 133);
             this.lblStartNewGane.Name = "lblStartNewGane";
-            this.lblStartNewGane.Size = new System.Drawing.Size(140, 20);
+            this.lblStartNewGane.Size = new System.Drawing.Size(170, 22);
             this.lblStartNewGane.TabIndex = 15;
             this.lblStartNewGane.Text = "Start a new game";
             // 
             // btnNewGame
             // 
-            this.btnNewGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnNewGame.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnNewGame.Location = new System.Drawing.Point(32, 115);
             this.btnNewGame.Name = "btnNewGame";
             this.btnNewGame.Size = new System.Drawing.Size(270, 60);
@@ -149,10 +149,10 @@
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.lblWelcome.Font = new System.Drawing.Font("Cascadia Code", 24F);
             this.lblWelcome.Location = new System.Drawing.Point(32, 43);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(429, 44);
+            this.lblWelcome.Size = new System.Drawing.Size(456, 43);
             this.lblWelcome.TabIndex = 13;
             this.lblWelcome.Text = "Welcome to Battleships!";
             // 
@@ -173,6 +173,7 @@
             this.Controls.Add(this.lblWelcome);
             this.Name = "MainMenu";
             this.Size = new System.Drawing.Size(500, 600);
+            this.Load += new System.EventHandler(this.MainMenu_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

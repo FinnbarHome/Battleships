@@ -74,5 +74,10 @@ namespace Battleships
             /* Exit the game */
             this.ParentForm.Close();
         }
+
+        private void MainMenu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

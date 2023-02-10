@@ -102,7 +102,7 @@
             // 
             // lblWelcome
             // 
-            this.lblWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.lblWelcome.Font = new System.Drawing.Font("Cascadia Code", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWelcome.Location = new System.Drawing.Point(100, 15);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(300, 50);
@@ -115,7 +115,8 @@
             // btnRotate
             // 
             this.btnRotate.Enabled = false;
-            this.btnRotate.Location = new System.Drawing.Point(325, 112);
+            this.btnRotate.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            this.btnRotate.Location = new System.Drawing.Point(315, 112);
             this.btnRotate.Name = "btnRotate";
             this.btnRotate.Size = new System.Drawing.Size(75, 23);
             this.btnRotate.TabIndex = 17;
@@ -129,7 +130,8 @@
             // btnContinue
             // 
             this.btnContinue.Enabled = false;
-            this.btnContinue.Location = new System.Drawing.Point(185, 112);
+            this.btnContinue.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            this.btnContinue.Location = new System.Drawing.Point(109, 112);
             this.btnContinue.Name = "btnContinue";
             this.btnContinue.Size = new System.Drawing.Size(75, 23);
             this.btnContinue.TabIndex = 18;
@@ -140,9 +142,10 @@
             // rotateLbl
             // 
             this.rotateLbl.AutoSize = true;
-            this.rotateLbl.Location = new System.Drawing.Point(182, 97);
+            this.rotateLbl.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            this.rotateLbl.Location = new System.Drawing.Point(106, 93);
             this.rotateLbl.Name = "rotateLbl";
-            this.rotateLbl.Size = new System.Drawing.Size(0, 13);
+            this.rotateLbl.Size = new System.Drawing.Size(0, 15);
             this.rotateLbl.TabIndex = 19;
             this.rotateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rotateLbl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
@@ -164,9 +167,12 @@
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem,
             this.quitToolStripMenuItem});
+            this.optionsToolStripMenuItem.Font = new System.Drawing.Font("Cascadia Code", 9F);
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.optionsToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
             // 
             // helpToolStripMenuItem
             // 
@@ -174,6 +180,8 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            this.helpToolStripMenuItem.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.helpToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
             // 
             // quitToolStripMenuItem
             // 
@@ -181,6 +189,8 @@
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            this.quitToolStripMenuItem.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.quitToolStripMenuItem.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
             // 
             // ChoosePlacesGrid
             // 

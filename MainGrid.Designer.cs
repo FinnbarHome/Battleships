@@ -107,24 +107,27 @@ namespace Battleships
             // lblYourShips
             // 
             this.lblYourShips.AutoSize = true;
+            this.lblYourShips.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
             this.lblYourShips.Location = new System.Drawing.Point(254, 34);
             this.lblYourShips.Name = "lblYourShips";
-            this.lblYourShips.Size = new System.Drawing.Size(73, 13);
+            this.lblYourShips.Size = new System.Drawing.Size(67, 15);
             this.lblYourShips.TabIndex = 5;
             this.lblYourShips.Text = "YOUR SHIPS";
             // 
             // lblEnemyShips
             // 
             this.lblEnemyShips.AutoSize = true;
+            this.lblEnemyShips.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
             this.lblEnemyShips.Location = new System.Drawing.Point(67, 259);
             this.lblEnemyShips.Name = "lblEnemyShips";
-            this.lblEnemyShips.Size = new System.Drawing.Size(80, 13);
+            this.lblEnemyShips.Size = new System.Drawing.Size(73, 15);
             this.lblEnemyShips.TabIndex = 6;
             this.lblEnemyShips.Text = "ENEMY SHIPS";
             // 
             // btnSaveGame
             // 
-            this.btnSaveGame.Location = new System.Drawing.Point(378, 34);
+            this.btnSaveGame.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            this.btnSaveGame.Location = new System.Drawing.Point(378, 30);
             this.btnSaveGame.Name = "btnSaveGame";
             this.btnSaveGame.Size = new System.Drawing.Size(75, 23);
             this.btnSaveGame.TabIndex = 7;
@@ -135,9 +138,10 @@ namespace Battleships
             // lblScore
             // 
             this.lblScore.AutoSize = true;
+            this.lblScore.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
             this.lblScore.Location = new System.Drawing.Point(254, 58);
             this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(0, 13);
+            this.lblScore.Size = new System.Drawing.Size(0, 15);
             this.lblScore.TabIndex = 8;
             // 
             // timerScore
@@ -159,8 +163,9 @@ namespace Battleships
             this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem,
             this.exitToolStripMenuItem});
+            this.gameToolStripMenuItem.Font = new System.Drawing.Font("Cascadia Code", 9F);
             this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
-            this.gameToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.gameToolStripMenuItem.Text = "Game";
             // 
             // helpToolStripMenuItem
