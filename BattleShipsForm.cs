@@ -39,33 +39,33 @@ namespace Battleships
         private void BattleShipsForm_Load(object sender, EventArgs e)
         {
             MainMenu mainMenuView = new MainMenu();
-            PlayMusic();
+            PlayMusic("soundfile.wav");
             this.Controls.Add(mainMenuView);
 
         }
 
-        private void PlayMusic()
+        private void PlayMusic(string filePath)
         {
             try
             {
-                SoundPlayer player = new SoundPlayer(@"soundfile.wav");
+           
+                SoundPlayer player = new SoundPlayer(@filePath);
                 player.PlayLooping();
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
 
-             
             }
             
             
         }
 
-        private void StopMusic()
+        private void StopMusic(string filePath)
         {
             try
             {
-                SoundPlayer player = new SoundPlayer(@"soundfile.wav");
+                SoundPlayer player = new SoundPlayer(@filePath);
                 player.Stop();
             }
             catch (Exception ex)
