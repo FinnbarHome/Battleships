@@ -27,6 +27,7 @@ namespace Battleships
         public GridSquare[][] player1Square = new GridSquare[10][];
         public GridSquare[][] player2Square = new GridSquare[10][];
         public int turn = 1;
+        public int score = 0;
         int player1Hits = 0;
         int player2Hits = 0;
 
@@ -216,6 +217,7 @@ namespace Battleships
             }
             Tuple<bool, int> hitRet = hitSquare(player2Square, x, y);
             player2Hits += hitRet.Item2;
+            score += 10 * player2Hits;
 
             if (hitRet.Item1)
             {

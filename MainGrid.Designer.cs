@@ -30,11 +30,14 @@ namespace Battleships
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.enemyGrid = new System.Windows.Forms.TableLayoutPanel();
             this.playerShips = new System.Windows.Forms.TableLayoutPanel();
             this.lblYourShips = new System.Windows.Forms.Label();
             this.lblEnemyShips = new System.Windows.Forms.Label();
             this.btnSaveGame = new System.Windows.Forms.Button();
+            this.lblScore = new System.Windows.Forms.Label();
+            this.timerScore = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // enemyGrid
@@ -124,10 +127,23 @@ namespace Battleships
             this.btnSaveGame.UseVisualStyleBackColor = true;
             this.btnSaveGame.Click += new System.EventHandler(this.btnSaveGame_Click);
             // 
+            // lblScore
+            // 
+            this.lblScore.AutoSize = true;
+            this.lblScore.Location = new System.Drawing.Point(254, 58);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(0, 13);
+            this.lblScore.TabIndex = 8;
+            // 
+            // timerScore
+            // 
+            this.timerScore.Interval = 1000;
+            // 
             // MainGrid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnSaveGame);
             this.Controls.Add(this.lblEnemyShips);
             this.Controls.Add(this.lblYourShips);
@@ -149,5 +165,7 @@ namespace Battleships
 
         private System.Windows.Forms.Label lblEnemyShips;
         private Button btnSaveGame;
+        private Label lblScore;
+        private Timer timerScore;
     }
 }

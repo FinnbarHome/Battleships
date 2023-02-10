@@ -29,6 +29,15 @@
         private void InitializeComponent()
         {
             this.btnReturnToMainMenu = new System.Windows.Forms.Button();
+            this.lblScores = new System.Windows.Forms.Label();
+            this.TxtEnterName = new System.Windows.Forms.TextBox();
+            this.lblEnterName = new System.Windows.Forms.Label();
+            this.lblYourScore = new System.Windows.Forms.Label();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.scoreDataTable = new System.Windows.Forms.DataGridView();
+            this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.scoreDataTable)).BeginInit();
             this.SuspendLayout();
             // 
             // btnReturnToMainMenu
@@ -42,19 +51,116 @@
             this.btnReturnToMainMenu.UseVisualStyleBackColor = true;
             this.btnReturnToMainMenu.Click += new System.EventHandler(this.btnReturnToMainMenu_Click);
             // 
+            // lblScores
+            // 
+            this.lblScores.AutoSize = true;
+            this.lblScores.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.lblScores.Location = new System.Drawing.Point(102, 15);
+            this.lblScores.Name = "lblScores";
+            this.lblScores.Size = new System.Drawing.Size(297, 44);
+            this.lblScores.TabIndex = 14;
+            this.lblScores.Text = "Our Top Scores!";
+            // 
+            // TxtEnterName
+            // 
+            this.TxtEnterName.Location = new System.Drawing.Point(163, 165);
+            this.TxtEnterName.Name = "TxtEnterName";
+            this.TxtEnterName.Size = new System.Drawing.Size(130, 20);
+            this.TxtEnterName.TabIndex = 15;
+            this.TxtEnterName.Visible = false;
+            // 
+            // lblEnterName
+            // 
+            this.lblEnterName.AutoSize = true;
+            this.lblEnterName.Location = new System.Drawing.Point(56, 165);
+            this.lblEnterName.Name = "lblEnterName";
+            this.lblEnterName.Size = new System.Drawing.Size(89, 13);
+            this.lblEnterName.TabIndex = 16;
+            this.lblEnterName.Text = "Enter Your name:";
+            this.lblEnterName.Visible = false;
+            // 
+            // lblYourScore
+            // 
+            this.lblYourScore.AutoSize = true;
+            this.lblYourScore.Location = new System.Drawing.Point(79, 108);
+            this.lblYourScore.Name = "lblYourScore";
+            this.lblYourScore.Size = new System.Drawing.Size(66, 13);
+            this.lblYourScore.TabIndex = 17;
+            this.lblYourScore.Text = "Your Score: ";
+            this.lblYourScore.Visible = false;
+            // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Location = new System.Drawing.Point(324, 163);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmit.TabIndex = 18;
+            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Visible = false;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // scoreDataTable
+            // 
+            this.scoreDataTable.AllowUserToAddRows = false;
+            this.scoreDataTable.AllowUserToDeleteRows = false;
+            this.scoreDataTable.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.scoreDataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.scoreDataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColName,
+            this.colScore});
+            this.scoreDataTable.Location = new System.Drawing.Point(59, 266);
+            this.scoreDataTable.Name = "scoreDataTable";
+            this.scoreDataTable.ReadOnly = true;
+            this.scoreDataTable.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.scoreDataTable.ShowEditingIcon = false;
+            this.scoreDataTable.Size = new System.Drawing.Size(391, 228);
+            this.scoreDataTable.TabIndex = 19;
+            // 
+            // ColName
+            // 
+            this.ColName.FillWeight = 195F;
+            this.ColName.HeaderText = "Name";
+            this.ColName.Name = "ColName";
+            this.ColName.ReadOnly = true;
+            this.ColName.Width = 195;
+            // 
+            // colScore
+            // 
+            this.colScore.FillWeight = 195F;
+            this.colScore.HeaderText = "Score";
+            this.colScore.Name = "colScore";
+            this.colScore.Width = 195;
+            // 
             // Score
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.scoreDataTable);
+            this.Controls.Add(this.btnSubmit);
+            this.Controls.Add(this.lblYourScore);
+            this.Controls.Add(this.lblEnterName);
+            this.Controls.Add(this.TxtEnterName);
+            this.Controls.Add(this.lblScores);
             this.Controls.Add(this.btnReturnToMainMenu);
             this.Name = "Score";
             this.Size = new System.Drawing.Size(500, 600);
+            ((System.ComponentModel.ISupportInitialize)(this.scoreDataTable)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button btnReturnToMainMenu;
+        private System.Windows.Forms.Label lblScores;
+        private System.Windows.Forms.TextBox TxtEnterName;
+        private System.Windows.Forms.Label lblEnterName;
+        private System.Windows.Forms.Label lblYourScore;
+        private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.DataGridView scoreDataTable;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colScore;
     }
 }
