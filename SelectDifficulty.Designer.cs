@@ -37,9 +37,9 @@
             // 
             // btnReturnToMainMenu
             // 
-            this.btnReturnToMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnReturnToMainMenu.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnReturnToMainMenu.Location = new System.Drawing.Point(106, 461);
-            this.btnReturnToMainMenu.Name = "lblReturnToMainMenu";
+            this.btnReturnToMainMenu.Name = "btnReturnToMainMenu";
             this.btnReturnToMainMenu.Size = new System.Drawing.Size(297, 60);
             this.btnReturnToMainMenu.TabIndex = 1;
             this.btnReturnToMainMenu.Text = "Return To Main Menu";
@@ -49,47 +49,47 @@
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.lblWelcome.Font = new System.Drawing.Font("Cascadia Code", 22F);
             this.lblWelcome.Location = new System.Drawing.Point(98, 43);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(305, 44);
+            this.lblWelcome.Size = new System.Drawing.Size(323, 40);
             this.lblWelcome.TabIndex = 15;
             this.lblWelcome.Text = "Choose Difficulty";
             // 
             // btnHard
             // 
-            this.btnHard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnHard.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnHard.Location = new System.Drawing.Point(106, 330);
             this.btnHard.Name = "btnHard";
             this.btnHard.Size = new System.Drawing.Size(297, 60);
             this.btnHard.TabIndex = 16;
+            this.btnHard.Tag = Battleships.Difficulty.HARD;
             this.btnHard.Text = "Hard";
             this.btnHard.UseVisualStyleBackColor = true;
-            this.btnHard.Tag = Difficulty.HARD;
             this.btnHard.Click += new System.EventHandler(this.btn_Click);
             // 
             // btnMedium
             // 
-            this.btnMedium.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnMedium.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnMedium.Location = new System.Drawing.Point(106, 230);
             this.btnMedium.Name = "btnMedium";
             this.btnMedium.Size = new System.Drawing.Size(297, 60);
             this.btnMedium.TabIndex = 17;
+            this.btnMedium.Tag = Battleships.Difficulty.MEDIUM;
             this.btnMedium.Text = "Medium";
             this.btnMedium.UseVisualStyleBackColor = true;
-            this.btnMedium.Tag = Difficulty.MEDIUM;
             this.btnMedium.Click += new System.EventHandler(this.btn_Click);
             // 
             // btnEasy
             // 
-            this.btnEasy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnEasy.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnEasy.Location = new System.Drawing.Point(106, 130);
             this.btnEasy.Name = "btnEasy";
             this.btnEasy.Size = new System.Drawing.Size(297, 60);
             this.btnEasy.TabIndex = 18;
+            this.btnEasy.Tag = Battleships.Difficulty.EASY;
             this.btnEasy.Text = "Easy";
             this.btnEasy.UseVisualStyleBackColor = true;
-            this.btnEasy.Tag = Difficulty.EASY;
             this.btnEasy.Click += new System.EventHandler(this.btn_Click);
             // 
             // SelectDifficulty

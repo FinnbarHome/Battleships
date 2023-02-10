@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnReturnToMainMenu = new System.Windows.Forms.Button();
             this.lblScores = new System.Windows.Forms.Label();
             this.TxtEnterName = new System.Windows.Forms.TextBox();
@@ -42,7 +43,7 @@
             // 
             // btnReturnToMainMenu
             // 
-            this.btnReturnToMainMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnReturnToMainMenu.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnReturnToMainMenu.Location = new System.Drawing.Point(50, 500);
             this.btnReturnToMainMenu.Name = "btnReturnToMainMenu";
             this.btnReturnToMainMenu.Size = new System.Drawing.Size(400, 60);
@@ -54,16 +55,17 @@
             // lblScores
             // 
             this.lblScores.AutoSize = true;
-            this.lblScores.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.lblScores.Location = new System.Drawing.Point(102, 15);
+            this.lblScores.Font = new System.Drawing.Font("Cascadia Code", 28F);
+            this.lblScores.Location = new System.Drawing.Point(82, 13);
             this.lblScores.Name = "lblScores";
-            this.lblScores.Size = new System.Drawing.Size(297, 44);
+            this.lblScores.Size = new System.Drawing.Size(352, 50);
             this.lblScores.TabIndex = 14;
             this.lblScores.Text = "Our Top Scores!";
             // 
             // TxtEnterName
             // 
-            this.TxtEnterName.Location = new System.Drawing.Point(163, 165);
+            this.TxtEnterName.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            this.TxtEnterName.Location = new System.Drawing.Point(165, 163);
             this.TxtEnterName.Name = "TxtEnterName";
             this.TxtEnterName.Size = new System.Drawing.Size(130, 20);
             this.TxtEnterName.TabIndex = 15;
@@ -72,9 +74,10 @@
             // lblEnterName
             // 
             this.lblEnterName.AutoSize = true;
+            this.lblEnterName.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
             this.lblEnterName.Location = new System.Drawing.Point(56, 165);
             this.lblEnterName.Name = "lblEnterName";
-            this.lblEnterName.Size = new System.Drawing.Size(89, 13);
+            this.lblEnterName.Size = new System.Drawing.Size(103, 15);
             this.lblEnterName.TabIndex = 16;
             this.lblEnterName.Text = "Enter Your name:";
             this.lblEnterName.Visible = false;
@@ -82,15 +85,17 @@
             // lblYourScore
             // 
             this.lblYourScore.AutoSize = true;
-            this.lblYourScore.Location = new System.Drawing.Point(79, 108);
+            this.lblYourScore.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            this.lblYourScore.Location = new System.Drawing.Point(88, 107);
             this.lblYourScore.Name = "lblYourScore";
-            this.lblYourScore.Size = new System.Drawing.Size(66, 13);
+            this.lblYourScore.Size = new System.Drawing.Size(79, 15);
             this.lblYourScore.TabIndex = 17;
             this.lblYourScore.Text = "Your Score: ";
             this.lblYourScore.Visible = false;
             // 
             // btnSubmit
             // 
+            this.btnSubmit.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
             this.btnSubmit.Location = new System.Drawing.Point(324, 163);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
@@ -105,6 +110,15 @@
             this.scoreDataTable.AllowUserToAddRows = false;
             this.scoreDataTable.AllowUserToDeleteRows = false;
             this.scoreDataTable.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Cascadia Code", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.scoreDataTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.scoreDataTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.scoreDataTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColName,
@@ -130,6 +144,7 @@
             this.colScore.FillWeight = 195F;
             this.colScore.HeaderText = "Score";
             this.colScore.Name = "colScore";
+            this.colScore.ReadOnly = true;
             this.colScore.Width = 195;
             // 
             // Score

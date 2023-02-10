@@ -38,16 +38,16 @@
             // lbl2Player
             // 
             this.lbl2Player.AutoSize = true;
-            this.lbl2Player.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lbl2Player.Location = new System.Drawing.Point(298, 215);
+            this.lbl2Player.Font = new System.Drawing.Font("Cascadia Code", 10F);
+            this.lbl2Player.Location = new System.Drawing.Point(293, 218);
             this.lbl2Player.Name = "lbl2Player";
-            this.lbl2Player.Size = new System.Drawing.Size(169, 20);
+            this.lbl2Player.Size = new System.Drawing.Size(176, 18);
             this.lbl2Player.TabIndex = 25;
             this.lbl2Player.Text = "Start a 2 player game";
             // 
             // btnTwoPlayers
             // 
-            this.btnTwoPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btnTwoPlayers.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btnTwoPlayers.Location = new System.Drawing.Point(17, 195);
             this.btnTwoPlayers.Name = "btnTwoPlayers";
             this.btnTwoPlayers.Size = new System.Drawing.Size(270, 60);
@@ -59,16 +59,16 @@
             // lblOnePlayer
             // 
             this.lblOnePlayer.AutoSize = true;
-            this.lblOnePlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
-            this.lblOnePlayer.Location = new System.Drawing.Point(298, 135);
+            this.lblOnePlayer.Font = new System.Drawing.Font("Cascadia Code", 10F);
+            this.lblOnePlayer.Location = new System.Drawing.Point(293, 138);
             this.lblOnePlayer.Name = "lblOnePlayer";
-            this.lblOnePlayer.Size = new System.Drawing.Size(184, 20);
+            this.lblOnePlayer.Size = new System.Drawing.Size(192, 18);
             this.lblOnePlayer.TabIndex = 23;
             this.lblOnePlayer.Text = "Start a game against AI";
             // 
             // btn1Player
             // 
-            this.btn1Player.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.5F);
+            this.btn1Player.Font = new System.Drawing.Font("Cascadia Code", 12.5F);
             this.btn1Player.Location = new System.Drawing.Point(17, 115);
             this.btn1Player.Name = "btn1Player";
             this.btn1Player.Size = new System.Drawing.Size(270, 60);
@@ -80,10 +80,10 @@
             // lblHowManyPlayers
             // 
             this.lblHowManyPlayers.AutoSize = true;
-            this.lblHowManyPlayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.lblHowManyPlayers.Location = new System.Drawing.Point(73, 43);
+            this.lblHowManyPlayers.Font = new System.Drawing.Font("Cascadia Code", 28F);
+            this.lblHowManyPlayers.Location = new System.Drawing.Point(41, 32);
             this.lblHowManyPlayers.Name = "lblHowManyPlayers";
-            this.lblHowManyPlayers.Size = new System.Drawing.Size(355, 44);
+            this.lblHowManyPlayers.Size = new System.Drawing.Size(396, 50);
             this.lblHowManyPlayers.TabIndex = 21;
             this.lblHowManyPlayers.Text = "How Many Players?";
             // 
