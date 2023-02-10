@@ -37,6 +37,7 @@
             this.scoreDataTable = new System.Windows.Forms.DataGridView();
             this.ColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnPlayAgain = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scoreDataTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,12 +131,25 @@
             this.colScore.FillWeight = 195F;
             this.colScore.HeaderText = "Score";
             this.colScore.Name = "colScore";
+            this.colScore.ReadOnly = true;
             this.colScore.Width = 195;
+            // 
+            // btnPlayAgain
+            // 
+            this.btnPlayAgain.Location = new System.Drawing.Point(163, 216);
+            this.btnPlayAgain.Name = "btnPlayAgain";
+            this.btnPlayAgain.Size = new System.Drawing.Size(236, 23);
+            this.btnPlayAgain.TabIndex = 21;
+            this.btnPlayAgain.Text = "Play Again";
+            this.btnPlayAgain.UseVisualStyleBackColor = true;
+            this.btnPlayAgain.Visible = false;
+            this.btnPlayAgain.Click += new System.EventHandler(this.btnPlayAgain_Click);
             // 
             // Score
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnPlayAgain);
             this.Controls.Add(this.scoreDataTable);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.lblYourScore);
@@ -162,5 +176,6 @@
         private System.Windows.Forms.DataGridView scoreDataTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colScore;
+        private System.Windows.Forms.Button btnPlayAgain;
     }
 }
