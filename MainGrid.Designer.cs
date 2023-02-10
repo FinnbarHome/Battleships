@@ -38,6 +38,11 @@ namespace Battleships
             this.btnSaveGame = new System.Windows.Forms.Button();
             this.lblScore = new System.Windows.Forms.Label();
             this.timerScore = new System.Windows.Forms.Timer(this.components);
+            this.GameOptions = new System.Windows.Forms.MenuStrip();
+            this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.GameOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // enemyGrid
@@ -53,7 +58,7 @@ namespace Battleships
             this.enemyGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.enemyGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.enemyGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.enemyGrid.Location = new System.Drawing.Point(150, 250);
+            this.enemyGrid.Location = new System.Drawing.Point(153, 259);
             this.enemyGrid.Margin = new System.Windows.Forms.Padding(0);
             this.enemyGrid.Name = "enemyGrid";
             this.enemyGrid.RowCount = 10;
@@ -83,7 +88,7 @@ namespace Battleships
             this.playerShips.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.playerShips.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.playerShips.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.playerShips.Location = new System.Drawing.Point(15, 15);
+            this.playerShips.Location = new System.Drawing.Point(18, 24);
             this.playerShips.Name = "playerShips";
             this.playerShips.RowCount = 10;
             this.playerShips.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -102,7 +107,7 @@ namespace Battleships
             // lblYourShips
             // 
             this.lblYourShips.AutoSize = true;
-            this.lblYourShips.Location = new System.Drawing.Point(251, 25);
+            this.lblYourShips.Location = new System.Drawing.Point(254, 34);
             this.lblYourShips.Name = "lblYourShips";
             this.lblYourShips.Size = new System.Drawing.Size(73, 13);
             this.lblYourShips.TabIndex = 5;
@@ -111,7 +116,7 @@ namespace Battleships
             // lblEnemyShips
             // 
             this.lblEnemyShips.AutoSize = true;
-            this.lblEnemyShips.Location = new System.Drawing.Point(64, 250);
+            this.lblEnemyShips.Location = new System.Drawing.Point(67, 259);
             this.lblEnemyShips.Name = "lblEnemyShips";
             this.lblEnemyShips.Size = new System.Drawing.Size(80, 13);
             this.lblEnemyShips.TabIndex = 6;
@@ -119,7 +124,7 @@ namespace Battleships
             // 
             // btnSaveGame
             // 
-            this.btnSaveGame.Location = new System.Drawing.Point(375, 25);
+            this.btnSaveGame.Location = new System.Drawing.Point(378, 34);
             this.btnSaveGame.Name = "btnSaveGame";
             this.btnSaveGame.Size = new System.Drawing.Size(75, 23);
             this.btnSaveGame.TabIndex = 7;
@@ -139,6 +144,39 @@ namespace Battleships
             // 
             this.timerScore.Interval = 1000;
             // 
+            // GameOptions
+            // 
+            this.GameOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gameToolStripMenuItem});
+            this.GameOptions.Location = new System.Drawing.Point(0, 0);
+            this.GameOptions.Name = "GameOptions";
+            this.GameOptions.Size = new System.Drawing.Size(500, 24);
+            this.GameOptions.TabIndex = 9;
+            this.GameOptions.Text = "menuStrip1";
+            // 
+            // gameToolStripMenuItem
+            // 
+            this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.gameToolStripMenuItem.Text = "Game";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // MainGrid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,9 +187,12 @@ namespace Battleships
             this.Controls.Add(this.lblYourShips);
             this.Controls.Add(this.playerShips);
             this.Controls.Add(this.enemyGrid);
+            this.Controls.Add(this.GameOptions);
             this.Name = "MainGrid";
             this.Size = new System.Drawing.Size(500, 600);
             this.Load += new System.EventHandler(this.MainGrid_Load);
+            this.GameOptions.ResumeLayout(false);
+            this.GameOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,5 +208,9 @@ namespace Battleships
         private Button btnSaveGame;
         private Label lblScore;
         private Timer timerScore;
+        private MenuStrip GameOptions;
+        private ToolStripMenuItem gameToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
     }
 }

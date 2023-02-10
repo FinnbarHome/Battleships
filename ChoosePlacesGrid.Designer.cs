@@ -33,6 +33,12 @@
             this.lblWelcome = new System.Windows.Forms.Label();
             this.btnRotate = new System.Windows.Forms.Button();
             this.btnContinue = new System.Windows.Forms.Button();
+            this.rotateLbl = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PlacementGrid
@@ -104,6 +110,7 @@
             this.lblWelcome.Text = "Place Ships";
             this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblWelcome.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.lblWelcome.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
             // 
             // btnRotate
             // 
@@ -114,12 +121,15 @@
             this.btnRotate.TabIndex = 17;
             this.btnRotate.Text = "Rotate Ship";
             this.btnRotate.UseVisualStyleBackColor = true;
+            this.btnRotate.EnabledChanged += new System.EventHandler(this.btnRotate_Enabled);
             this.btnRotate.Click += new System.EventHandler(this.btnRotate_Click);
+            this.btnRotate.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.btnRotate.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
             // 
             // btnContinue
             // 
             this.btnContinue.Enabled = false;
-            this.btnContinue.Location = new System.Drawing.Point(211, 112);
+            this.btnContinue.Location = new System.Drawing.Point(185, 112);
             this.btnContinue.Name = "btnContinue";
             this.btnContinue.Size = new System.Drawing.Size(75, 23);
             this.btnContinue.TabIndex = 18;
@@ -127,21 +137,71 @@
             this.btnContinue.UseVisualStyleBackColor = true;
             this.btnContinue.Click += new System.EventHandler(this.btnContinue_Click);
             // 
+            // rotateLbl
+            // 
+            this.rotateLbl.AutoSize = true;
+            this.rotateLbl.Location = new System.Drawing.Point(182, 97);
+            this.rotateLbl.Name = "rotateLbl";
+            this.rotateLbl.Size = new System.Drawing.Size(0, 13);
+            this.rotateLbl.TabIndex = 19;
+            this.rotateLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rotateLbl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
+            this.rotateLbl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(500, 24);
+            this.menuStrip1.TabIndex = 20;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
+            this.quitToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // quitToolStripMenuItem
+            // 
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
             // ChoosePlacesGrid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.rotateLbl);
             this.Controls.Add(this.btnContinue);
             this.Controls.Add(this.btnRotate);
             this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.SelectableShips);
             this.Controls.Add(this.PlacementGrid);
+            this.Controls.Add(this.menuStrip1);
             this.Name = "ChoosePlacesGrid";
             this.Size = new System.Drawing.Size(500, 600);
             this.Load += new System.EventHandler(this.ChoosePlacesGrid_Load);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ChoosePlacesGrid_RightClick);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -152,5 +212,10 @@
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Button btnRotate;
         private System.Windows.Forms.Button btnContinue;
+        private System.Windows.Forms.Label rotateLbl;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
     }
 }
