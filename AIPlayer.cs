@@ -38,11 +38,6 @@ namespace Battleships
             //For easy difficulty
             if (diff == "EASY")
             {
-                Console.WriteLine("Player 1:");
-                gameState.printBoard(gameState.player1Square);
-                Console.WriteLine("Player 2:");
-                gameState.printBoard(gameState.player2Square);
-
                 randHittingAI();
             }
             //For med difficulty
@@ -163,6 +158,11 @@ namespace Battleships
             {
                 Console.WriteLine("AI STATUS: Found a ship turn so will search this turn");
                 foundShipLastTurn = true;
+            }
+            else
+            {
+                Console.WriteLine("AI STATUS: Is not going to search this turn");
+                foundShipLastTurn = false;
             }
 
             bool finished = false;
