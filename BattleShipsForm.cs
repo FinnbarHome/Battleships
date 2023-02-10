@@ -39,16 +39,19 @@ namespace Battleships
         private void BattleShipsForm_Load(object sender, EventArgs e)
         {
             MainMenu mainMenuView = new MainMenu();
-            PlayMusic("soundfile.wav");
+            PlayMusic("MakaiSymphonyTheArmyofMinotaur.wav");
             this.Controls.Add(mainMenuView);
 
         }
 
+        /*
+         * Song: 'Makai Symphony - The Army of Minotaur' is under a creative commons license.
+            https://www.youtube.com/channel/UC8cn3OdeqYhyhNUyrMxOQKQ
+         */
         private void PlayMusic(string filePath)
         {
             try
             {
-           
                 SoundPlayer player = new SoundPlayer(@filePath);
                 player.PlayLooping();
             }
