@@ -33,6 +33,7 @@ namespace Battleships
             lblEnterName.Visible = true;
             btnSubmit.Visible = true;
             TxtEnterName.Visible = true;
+            btnPlayAgain.Visible = true;
             setupTable();
             updateTable();
 
@@ -131,6 +132,14 @@ namespace Battleships
                 }
             }
             updateTable();
+        }
+
+        private void btnPlayAgain_Click(object sender, EventArgs e)
+        {
+            NumPlayerControl numPlayerView = new NumPlayerControl();
+            this.ParentForm.Controls.Add(numPlayerView);
+            this.ParentForm.Controls.Remove(this);
+            this.Dispose();
         }
     }
 }

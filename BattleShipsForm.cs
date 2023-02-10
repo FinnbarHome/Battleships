@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -37,7 +39,39 @@ namespace Battleships
         private void BattleShipsForm_Load(object sender, EventArgs e)
         {
             MainMenu mainMenuView = new MainMenu();
+            PlayMusic();
             this.Controls.Add(mainMenuView);
+
+        }
+
+        private void PlayMusic()
+        {
+            try
+            {
+                SoundPlayer player = new SoundPlayer(@"soundfile.wav");
+                player.PlayLooping();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+             
+            }
+            
+            
+        }
+
+        private void StopMusic()
+        {
+            try
+            {
+                SoundPlayer player = new SoundPlayer(@"soundfile.wav");
+                player.Stop();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

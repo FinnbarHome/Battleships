@@ -36,8 +36,10 @@ namespace Battleships
             GameState gameState = null;
             if(loadFile.FileName != null)
             {
-                gameState = GameState.loadFromFile(loadFile.FileName);
+                return;
             }
+     
+            gameState = GameState.loadFromFile(loadFile.FileName);
             if(gameState == null)
             {
                 MessageBox.Show("Failed to load file");
