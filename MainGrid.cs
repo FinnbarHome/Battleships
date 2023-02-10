@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace Battleships
         GameState gameState = null;
         private Button[][] enemyGridLayout = null;
         private Button[][] playerGridLayout = null;
-
+        private int gameTime = 0;
+        private bool muted = false;
+        private SoundPlayer player;
         public MainGrid(GameState gameState)
         {
             /* Setup our Starting Variables */
@@ -29,7 +32,8 @@ namespace Battleships
                 playerGridLayout[i] = new Button[gameState.player1Square[i].Length];
             }
             InitializeComponent();
-
+            gameTimer.Tick += GameTimer_Tick;
+            gameTimer.Start();
             if (gameState.difficulty == Difficulty.TWOPLAYER)
             {
                 return;
@@ -37,6 +41,20 @@ namespace Battleships
             lblScore.Text = "Score: " + gameState.score.ToString();
             timerScore.Tick += TimerScore_Tick;
             timerScore.Start();
+
+            /*
+                * Song: 'Makai Symphony - The Army of Minotaur' is under a creative commons license.
+                https://www.youtube.com/channel/UC8cn3OdeqYhyhNUyrMxOQKQ
+            */
+
+
+            player = new SoundPlayer("MakaiSymphonyTheArmyofMinotaur.wav");
+        }
+
+        private void GameTimer_Tick(object sender, EventArgs e)
+        {
+            gameTime += 1;
+            lblGameTime.Text = "Time: " + gameTime + " Seconds";
         }
 
         private void TimerScore_Tick(object sender, EventArgs e)
@@ -254,6 +272,15 @@ namespace Battleships
             /* Check if the square selected was hit */
             if (gameState.hitPlayer1Square(coordinates[0], coordinates[1]))
             {
+                if(!muted)
+                {
+                    try
+                    {
+                        SoundPlayer player = new SoundPlayer("HitSound.wav");
+                        player.Play();
+                    }
+                    catch (Exception) { }
+                }
                 /* Fix our image */
                 sentButton.BackgroundImage = Ships.NONE.getImage();
                 /* Update the grid */
@@ -295,6 +322,15 @@ namespace Battleships
             /* Check if the square selected was hit */
             if (gameState.hitPlayer2Square(coordinates[0], coordinates[1]))
             {
+                if (!muted)
+                {
+                    try
+                    {
+                        SoundPlayer player = new SoundPlayer("HitSound.wav");
+                        player.Play();
+                    }
+                    catch (Exception) { }
+                }
                 /* Fix our image */
                 sentButton.BackgroundImage = Ships.NONE.getImage();
                 /* Update the grid */
@@ -392,5 +428,26 @@ namespace Battleships
         {
             this.ParentForm.Close();
         }
+
+        private void muteBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (muted)
+                {
+                    muted = false;
+                    player.PlayLooping();
+                    muteBtn.Text = "🔊";
+                }
+                else
+                {
+                    muted = true;
+                    player.Stop();
+                    muteBtn.Text = "🔇";
+                }
+            }
+            catch (Exception) { }
+        }
+
     }
 }

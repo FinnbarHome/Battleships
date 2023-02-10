@@ -42,6 +42,9 @@ namespace Battleships
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblGameTime = new System.Windows.Forms.Label();
+            this.muteBtn = new System.Windows.Forms.Button();
             this.GameOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,21 +174,46 @@ namespace Battleships
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // gameTimer
+            // 
+            this.gameTimer.Interval = 1000;
+            // 
+            // lblGameTime
+            // 
+            this.lblGameTime.AutoSize = true;
+            this.lblGameTime.Location = new System.Drawing.Point(254, 99);
+            this.lblGameTime.Name = "lblGameTime";
+            this.lblGameTime.Size = new System.Drawing.Size(87, 13);
+            this.lblGameTime.TabIndex = 10;
+            this.lblGameTime.Text = "Time: 0 Seconds";
+            // 
+            // muteBtn
+            // 
+            this.muteBtn.Location = new System.Drawing.Point(378, 74);
+            this.muteBtn.Name = "muteBtn";
+            this.muteBtn.Size = new System.Drawing.Size(75, 23);
+            this.muteBtn.TabIndex = 11;
+            this.muteBtn.Text = "🔊";
+            this.muteBtn.UseVisualStyleBackColor = true;
+            this.muteBtn.Click += new System.EventHandler(this.muteBtn_Click);
             // 
             // MainGrid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.muteBtn);
+            this.Controls.Add(this.lblGameTime);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.btnSaveGame);
             this.Controls.Add(this.lblEnemyShips);
@@ -217,5 +245,8 @@ namespace Battleships
         private ToolStripMenuItem gameToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
+        private Timer gameTimer;
+        private Label lblGameTime;
+        private Button muteBtn;
     }
 }

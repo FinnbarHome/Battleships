@@ -168,6 +168,7 @@
   <ItemGroup>
     <Content Include="bin\Debug\MakaiSymphonyTheArmyofMinotaur.wav" />
     <Content Include="Boat.ico" />
+    <None Include="Resources\HitSound.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

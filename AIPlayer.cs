@@ -106,7 +106,6 @@ namespace Battleships
                 {
                     if ((i + j) % 2 == 0)
                     {
-                        Console.WriteLine(i.ToString() + j.ToString());
                         coordinates.Add(new Coordinate(i, j));
                     }
                 }
