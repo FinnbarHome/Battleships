@@ -43,7 +43,8 @@ namespace Battleships
                 shipBtn.FlatStyle = FlatStyle.Flat;
                 shipBtn.FlatAppearance.BorderSize = 2;
                 shipBtn.Dock = DockStyle.Fill;
-
+                shipBtn.ForeColor = Color.White;
+                shipBtn.FlatAppearance.BorderColor = Color.White;
                 /* Set our buttons image to the image for our ship */
                 shipBtn.BackgroundImage = ship.getThumbnailImage();
 
@@ -410,6 +411,7 @@ namespace Battleships
         {
 
         }
+        
 
         private void ChoosePlacesGrid_RightClick(object sender, MouseEventArgs e)
         {
@@ -439,6 +441,28 @@ namespace Battleships
                     selectedBox.Height /= tag.Item1.getSize();
                 }
             }
+        }
+
+        private void btnRotate_Enabled(object sender, EventArgs e)
+        {
+            Button state = (Button)sender;
+            if (state.Enabled) { 
+                rotateLbl.Text = "Right click anywhere on the form to rotate ship";
+            }
+            else
+            {
+                rotateLbl.Text = "";
+            }
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Selecting your ships\n\nTo select your ship, select one of the dark blue buttons at the bottom of the screen and choose the placement on the grid. You can also rotate the ship either horizontally or vertically by either right clicking, or pressing the button on the form. \n\nIf you are unhappy with where you placed a ship, simply click on it again and you will be able to replace your ship on the grid.  ");
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ParentForm.Close();
         }
     }
 }

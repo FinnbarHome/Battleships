@@ -382,5 +382,15 @@ namespace Battleships
                 }
             }
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Rules/Help\n \nIn Battleships, the aim is to sink the enemies boats without them sinking yours. You may choose where to place your boats on the grid at the start of the game, then you and the enemy take turns shooting at points on the grid until you hit the enemies ship. Once hit, you will be notified of your success, and if you sink their battleship they must alert you by announcing \"You sank my battleship\". To win, simply sink all the enemies ships before they sink yours.");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.ParentForm.Close();
+        }
     }
 }
