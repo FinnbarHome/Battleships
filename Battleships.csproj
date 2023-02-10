@@ -63,6 +63,7 @@
     <Compile Include="ChoosePlacesGrid.Designer.cs">
       <DependentUpon>ChoosePlacesGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Coordinate.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GridSquare.cs" />
     <Compile Include="MainGrid.cs">
